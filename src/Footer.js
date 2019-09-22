@@ -3,15 +3,18 @@ import React, { Component } from 'react'
 export default class Footer extends Component {
   render() {
     return (
-     <div>
+<div>
   <footer className="main-footer">
-    <div className="pull-right hidden-xs">
-      <b>Version</b> 2.4.18
+    <strong>Copyright © 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div className="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.0.0-rc.1
     </div>
-    <strong>Copyrights © 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-    reserved.
   </footer>
 </div>
+
+
+
 
     )
   }

@@ -1,18 +1,26 @@
 import React, { Component } from 'react'
-import Header from './Header'
-import Menu from './Menu'
-import Footer from './Footer'
-import Content from './Content'
-
- class App extends Component {
+import {BrowserRouter as Router,Switch,Route} from "react-router-dom"
+import register from "./component/Register"
+import login from "./component/Login" 
+import Profile from "./Home/Profile"
+import Home from "./Home/Home"
+import Failures from "./Home/Failures"
+import Reports from "./Home/Reports"
+import Notfound from "./component/Notfound"
+class App extends Component {
   render() {
     return (
-      <div>
-        <Header/>
-        <Menu/>
-        <Content/>
-        <Footer/>  
-         </div>
+      <Router>
+       <Switch>
+          <Route exact path="/" component={login}/>
+          <Route exact path="/register" component={register}/>
+          <Route exact path="/profile" component={Profile}/>
+          <Route exact path="/home" component={Home}/>
+          <Route exact path="/failures" component={Failures}/>
+          <Route exact path="/reports" component={Reports}/>
+          <Route exact  component={Notfound}/> 
+          </Switch>
+      </Router>
     )
   }
 }

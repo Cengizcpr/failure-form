@@ -18,7 +18,7 @@ export default class Header extends Component {
         
       </li>
       <li className="nav-item d-none d-sm-inline-block">
-        <Link to="/home" className="nav-link">Home</Link>
+        <Link to="/home" className="nav-link">Anasayfa</Link>
       </li>
       
     </ul>
@@ -26,7 +26,7 @@ export default class Header extends Component {
     <ul className="navbar-nav ml-auto">
      
       <li className="nav-item dropdown">  <Link to="/" className="nav-link" onClick={this.logOut.bind(this)}>
-            Logout
+            Çıkış Yap
           </Link>
         </li>
         </ul>

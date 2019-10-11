@@ -23,7 +23,7 @@ export default class Menu extends Component {
           </div>
           {/* Sidebar Menu */}
           <nav className="mt-2">
-            <ul className="nav nav-pills nav-sidebar " data-widget="treeview" role="menu" data-accordion="false">
+            <ul className="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu" data-accordion="false">
               {/* Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library */}
               <li className="nav-item ">
@@ -36,16 +36,28 @@ export default class Menu extends Component {
                 </Link>
                
               </li>
+             
               <li className="nav-item ">
-                <Link  to="/profile" className="nav-link ">
-                  <i className="nav-icon fas fa-table" />
+                <Link to="/customers" className="nav-link ">
+                <i className="nav-icon far fa-plus-square"></i>
                   <p>
-                  Customers
-                   
+                  Add Customers               
                   </p>
                 </Link>
                
               </li>
+        
+
+              <li className="nav-item ">
+                <Link to="/customerslist" className="nav-link ">
+                <i className="nav-icon fas fa-copy"></i>
+                  <p>
+                  Lists Customers               
+                  </p>
+                </Link>
+                
+              </li>
+          
               <li className="nav-item ">
                 <Link to="/failures" className="nav-link ">
                   <i className="nav-icon fas fa-edit" />
@@ -55,6 +67,7 @@ export default class Menu extends Component {
                 </Link>
                
               </li>
+            
               <li className="nav-item ">
                 <Link to="/reports" className="nav-link">
                   <i className="nav-icon fas fa-chart-pie" />
@@ -76,6 +89,7 @@ export default class Menu extends Component {
         {/* /.sidebar */}
       </aside>
     </div>
+    
 
     )
   }

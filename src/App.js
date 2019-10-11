@@ -7,6 +7,8 @@ import Home from "./Home/Home"
 import Failures from "./Home/Failures"
 import Reports from "./Home/Reports"
 import Notfound from "./component/Notfound"
+import Customers from "./Home/Customers"
+import Customerslist from "./Home/Customerslist"
 class App extends Component {
   render() {
     return (
@@ -17,7 +19,9 @@ class App extends Component {
           <Route exact path="/profile" component={Profile}/>
           <Route exact path="/home" component={Home}/>
           <Route exact path="/failures" component={Failures}/>
-          <Route exact path="/reports" component={Reports}/>
+          <Route exact path="/reports" component={Reports}/>   
+          <Route exact path="/customers" component={Customers}/>
+          <Route exact path="/customerslist" component={Customerslist}/>
           <Route exact  component={Notfound}/> 
           </Switch>
       </Router>

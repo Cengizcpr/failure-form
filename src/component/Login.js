@@ -30,7 +30,7 @@ class Login extends Component {
 
     login(user).then(res => {
    
-      if(res==false){
+      if(res===false){
         console.log('başarısız')
         this.setState({
           email:"",

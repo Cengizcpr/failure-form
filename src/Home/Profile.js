@@ -43,24 +43,24 @@ import Menu from "./Menu"
 
  <div>  <Header/>
  <Menu/>
-  <div className="content-wrapper">
+  <div className="container">
   
     <div className="content-header">  
           <div className="col-sm-8 mx-auto">
-            <h1 className="text-center">PROFILE</h1>
+            <h1 className="text-center">PROFİL</h1>
           </div>
           <table className="table col-md-6 mx-auto">
             <tbody>
               <tr>
-                <td>Fist Name</td>
+                <td>Adınız:</td>
                 <td>{this.state.first_name}</td>
               </tr>
               <tr>
-                <td>Last Name</td>
+                <td>Soyadınız:</td>
                 <td>{this.state.last_name}</td>
               </tr>
               <tr>
-                <td>Email</td>
+                <td>Email Adresiniz:</td>
                 <td>{this.state.email}</td>
               </tr>
             </tbody>

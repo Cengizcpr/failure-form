@@ -8,7 +8,7 @@ export default class Menu extends Component {
         {/* Brand Logo */}
         <Link to='/home'  className="brand-link">
           <img src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
-          <span className="brand-text font-weight-light">Failures Form</span>
+          <span className="brand-text font-weight-light">Arıza Form</span>
         </Link>
         {/* Sidebar */}
         <div className="sidebar">
@@ -18,7 +18,7 @@ export default class Menu extends Component {
               <img src="dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="UserImage" />
             </div>
             <div className="info">
-              <Link to='/profile' className="d-block">Admin</Link>
+              <Link to='/profile' className="d-block">Profil</Link>
             </div>
           </div>
           {/* Sidebar Menu */}
@@ -30,7 +30,7 @@ export default class Menu extends Component {
                 <Link to="/home" className="nav-link ">
                   <i className="nav-icon fas fa-tachometer-alt" />
                   <p>
-                    Dashboard
+                    Anasayfa
                   
                     </p>
                 </Link>
@@ -41,7 +41,7 @@ export default class Menu extends Component {
                 <Link to="/customers" className="nav-link ">
                 <i className="nav-icon far fa-plus-square"></i>
                   <p>
-                  Add Customers               
+                  Müşteri Ekle              
                   </p>
                 </Link>
                
@@ -52,17 +52,26 @@ export default class Menu extends Component {
                 <Link to="/customerslist" className="nav-link ">
                 <i className="nav-icon fas fa-copy"></i>
                   <p>
-                  Lists Customers               
+                  Müşterileri Listele             
                   </p>
                 </Link>
                 
               </li>
           
               <li className="nav-item ">
-                <Link to="/failures" className="nav-link ">
+                <Link to="/failuresadd" className="nav-link ">
                   <i className="nav-icon fas fa-edit" />
                   <p>
-                  Failures Form               
+                 Arıza Ekle              
+                  </p>
+                </Link>
+               
+              </li>
+              <li className="nav-item ">
+                <Link to="/failureslist" className="nav-link ">
+                  <i className="nav-icon fas fa-copy" />
+                  <p>
+                  Arızaları Listele             
                   </p>
                 </Link>
                
@@ -73,7 +82,7 @@ export default class Menu extends Component {
                   <i className="nav-icon fas fa-chart-pie" />
                  
                   <p>
-                  Reports
+                  Raporlar
                     
                   </p>
                 </Link>

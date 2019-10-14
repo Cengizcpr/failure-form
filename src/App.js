@@ -4,7 +4,8 @@ import register from "./component/Register"
 import login from "./component/Login" 
 import Profile from "./Home/Profile"
 import Home from "./Home/Home"
-import Failures from "./Home/Failures"
+import Failures from "./Home/FailuresAdd"
+import FailuresList from "./Home/FailuresList"
 import Reports from "./Home/Reports"
 import Notfound from "./component/Notfound"
 import Customers from "./Home/Customers"
@@ -18,7 +19,8 @@ class App extends Component {
           <Route exact path="/register" component={register}/>
           <Route exact path="/profile" component={Profile}/>
           <Route exact path="/home" component={Home}/>
-          <Route exact path="/failures" component={Failures}/>
+          <Route exact path="/failuresadd" component={Failures}/>
+          <Route exact path="/failureslist" component={FailuresList}/>
           <Route exact path="/reports" component={Reports}/>   
           <Route exact path="/customers" component={Customers}/>
           <Route exact path="/customerslist" component={Customerslist}/>

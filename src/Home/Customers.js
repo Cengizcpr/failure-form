@@ -55,7 +55,7 @@ window.location.replace('/')
       <Menu/>
       
         <div className="container">
-    <h1 className="text-center">Müşteri Kaydı</h1>
+    <h3 className="text-center">Müşteri Kaydı</h3>
    
     <hr />
     <form noValidate onSubmit={this.onSubmit}>  
@@ -67,7 +67,7 @@ window.location.replace('/')
     <input type="text"  className="form-control" placeholder="Müşteri Adresi:"  name="adress"  value={this.state.adress}  onChange={this.onChange} required /><br/>
 
    
-    <button type="submit" className="registerbtn btn-block btn-flat">Kaydet</button> </form>
+    <button type="submit" className="registerbtn btn-primary btn-block btn-flat">Kaydet</button> </form>
   </div>
   
 </div>

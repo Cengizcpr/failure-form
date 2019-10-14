@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import Header from "./Header"
 import Menu from "./Menu"
 import jwt_decode from 'jwt-decode'
-import{customerlist} from '../component/CustomerFunctions'
- 
- class Customerslist extends Component {
+import {failureslist} from '../component/FailuresFunctions'
+ class FailuresList extends Component {
   constructor() {
     super() 
     
@@ -12,54 +11,36 @@ import{customerlist} from '../component/CustomerFunctions'
     this.state = {
       locations:[]
       };
-  
-
-    
+      
   }
- 
- 
+
+
   componentDidMount(e) {
-    
     const token = localStorage.usertoken
   try{
-
-    jwt_decode(token);
-
-    customerlist().then(res =>{
-        this.setState({
-          locations:res
-        })
-        
-    })
-
-
-
-   
-
+    jwt_decode(token)
+    failureslist().then(res =>{
+      this.setState({
+        locations:res
+      })
+      
+  })
   }catch(error){
 window.location.replace('/')
   }
   
   }
   
- 
-  
   render() { 
-    function handleClick(e) {
-      e.preventDefault();
-    
-       console.log("tıklandı..")
-        
-    
-    }
     const cities=this.state.locations.map(data => (
       <tr key={data._id}>
-     <td>{data.first_name}</td>
-      <td>{data.last_name}</td> 
-      <td>{data.phone_no}</td> 
-      <td>{data.adress}</td> 
+     <td>{data.customer_name}</td>
+      <td>{data.failures_name}</td> 
+      <td>{data.failures_species} </td> 
+      <td>{data.brand_name}</td> 
+      <td>{data.price}</td> 
+      <td>{data.note}</td> 
       <td>{data.date}</td> 
-      <td><input type="button" value={"Güncelle"} onClick={handleClick}></input></td> 
 
       </tr>
     ));
@@ -71,7 +52,7 @@ window.location.replace('/')
       <div className="content-wrapper">
       <div className="card">
   <div className="card-header">
-    <h3 className="card-title card">Müşteriler</h3>
+    <h3 className="card-title card">Arızalar</h3>
   </div>
   {/* /.card-header */}
   <div className="card-body">
@@ -79,11 +60,12 @@ window.location.replace('/')
       <thead>
         <tr>
           <th>Müşteri Adı</th>
-          <th>Müşteri Soyadı</th>
-          <th>Telefon No</th>
-          <th>Adres</th>
+          <th>Arıza Adı</th>
+          <th>Arıza Cinsi</th>
+          <th>Marka Adı</th>
+          <th>Fiyat</th>
+          <th>Not</th>
           <th>Tarih</th>
-          <th>Ayarlar</th>
         </tr>
       </thead>
       <tbody>
@@ -97,9 +79,7 @@ window.location.replace('/')
        </div>
   
 </div>
-
-
     )
   }
 }
-export default Customerslist
+export default FailuresList

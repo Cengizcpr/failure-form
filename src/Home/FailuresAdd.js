@@ -4,7 +4,7 @@ import Menu from "./Menu"
 import jwt_decode from 'jwt-decode'
 import{customerlist} from '../component/CustomerFunctions'
 import{failures} from '../component/FailuresFunctions'
-let b=""
+let b="",c=''
  class FailuresAdd extends Component {
   constructor() {
     super() 
@@ -18,8 +18,10 @@ let b=""
       price:'',
       customer_name:'',
      type:'',
-      note:''
-     
+      note:'',
+      failuresstate:'',
+     durum:'Beklemede',
+     durum2:'Yapıldı'
       };    
 
       this.onChange = this.onChange.bind(this)
@@ -41,6 +43,15 @@ let b=""
    
 
 }
+handleChange2 = (e) => {
+  let index = e.nativeEvent.target.selectedIndex;
+  const a=e.nativeEvent.target[index].text;
+
+
+ c=a;console.log(c)
+ 
+
+}
   onSubmit(e)  {console.log(b)
     e.preventDefault()
    
@@ -54,8 +65,9 @@ let b=""
       brand_name: this.state.brand_name,
       price: this.state.price,
       note: this.state.note,
-      price: this.state.price,
-     customer_name:b
+      
+     customer_name:b,
+     failuresstate:c
        }
 
     failures(newFailures).then(res => {
@@ -100,6 +112,11 @@ window.location.replace('/')
     <select className="form-control"  onChange={this.handleChange} >
       <option>Müşteri Seçiniz... </option>
       {customers}
+    </select><br/>
+    <select className="form-control"  onChange={this.handleChange2} >
+      <option>Durum Seçiniz... </option>
+      <option>{this.state.durum} </option>
+      <option>{this.state.durum2} </option>
     </select><br/>
     <input type="text"  className="form-control" placeholder="Arıza Adı:"  name="failures_name"  value={this.state.failures_name}  onChange={this.onChange}   required /><br/>
    

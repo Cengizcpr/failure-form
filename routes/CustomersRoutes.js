@@ -57,4 +57,41 @@ customers.get('/customerlist', (req, res) => {
       res.send('error: ' + err)
     })
 })
+customers.put('/customerlist', (req, res) => {
+  
+  const customerData = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    phone_no: req.body.phone_no,
+    adress: req.body.adress,
+    _id:req.body._id
+  }
+  Customer.update({_id:req.body._id},customerData,function(err,objs){ })
+    .then(objs=> {
+       
+      res.json(objs)
+    })
+    .catch(err=>{
+      res.json({ error: 'Customer already exists' })
+    })
+ 
+
+})
+customers.post('/customerlist', (req, res) => {
+  console.log(req.body._id)
+
+  
+ Customer.deleteOne({_id:req.body._id})
+    .then(objs=> {
+       
+      res.json(objs)
+    })
+    .catch(err=>{
+      res.json({ error: 'Customer already exists' })
+    })
+ 
+
+})
+
+
 module.exports = customers

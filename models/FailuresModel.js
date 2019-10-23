@@ -28,7 +28,10 @@ const FailuresSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  failuresstate: {
+   type: String
+ } 
 })
 
 module.exports = Failures = mongoose.model('failures', FailuresSchema)

@@ -8,7 +8,7 @@ export const failures = newFailures => {
         failures_species: newFailures.failures_species,
         price: newFailures.price,
         note: newFailures.note,
-
+        failuresstate:newFailures.failuresstate,
         brand_name: newFailures.brand_name
     })
     .then(response => {
@@ -27,4 +27,38 @@ export const failureslist = failures => {
     .catch(err => {localStorage.clear()
       console.log(err)
     })
+}
+export const failuresupdate = failures => {
+  return axios
+  
+ .put('failures/flist',
+  {
+    customer_name: failures.customer_name,
+    failures_name: failures.failures_name,
+    failures_species: failures.failures_species,
+    price: failures.price,
+    note: failures.note,
+    brand_name: failures.brand_name,
+    failuresstate:failures.failuresstate,
+
+      _id:failures._id
+
+      
+})
+.then(response => {
+  console.log('Updated')
+})
+
+}
+export const failuresdeletes = failures => {
+  return axios
+  
+ .post('failures/flist',
+  {_id:failures._id
+   
+  } )
+  .then(response=>{
+    return response
+  })
+
 }

@@ -24,3 +24,36 @@ export const customerlist = customer => {
       console.log(err)
     })
 }
+export const customerupdate = customer => {
+  return axios
+  
+ .put('customers/customerlist',
+  {
+      first_name: customer.first_name,
+      last_name: customer.last_name,
+      phone_no: customer.phone_no,
+      adress: customer.adress,
+      _id:customer._id
+
+      
+})
+.then(response => {
+  console.log('Updated')
+})
+
+}
+export const customerdelete = customer => {
+  return axios
+  
+ .post('customers/customerlist',
+  {_id:customer._id
+   
+  } )
+  .then(response=>{
+    return response
+  })
+
+}
+
+
+

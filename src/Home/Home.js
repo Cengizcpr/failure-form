@@ -57,39 +57,39 @@ window.location.replace('/')
         <p>Arızalar </p>
       </div>
       <div className="icon">
-      <Link to='/failuresadd' class="icon" >  <i className="nav-icon fas fa-edit" /></Link>
+      <Link to='/failuresadd' className="icon" >  <i className="nav-icon fas fa-edit" /></Link>
       </div>
-      <Link to='/failureslist' class="small-box-footer">Daha fazla bilgi
+      <Link to='/failureslist' className="small-box-footer">Daha fazla bilgi
  <i className="fas fa-arrow-circle-right" /></Link>
     </div>
   </div>
   {/* ./col */}
   <div className="col-lg-3 col-6">
     {/* small box */}
-    <div className="small-box bg-success">
+    <div className="small-box bg-warning">
       <div className="inner">
-        <h3>53<sup style={{fontSize: 20}}>%</sup></h3>
-        <p>Bounce Rate</p>
+        <h3>53</h3>
+        <p>Yapılmakta olan</p>
       </div>
       <div className="icon">
-        <i className="ion ion-stats-bars" />
+      <Link to='/failuresadd' className="icon" >  <i className="nav-icon fas fa-edit" /></Link>
       </div>
-      <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+      <Link to='/failureslist' className="small-box-footer">Daha fazla bilgi <i className="fas fa-arrow-circle-right" /></Link>
     </div>
   </div>
   {/* ./col */}
   <div className="col-lg-3 col-6">
-  <div class="small-box bg-warning">
-              <div class="inner">
+  <div className="small-box bg-success">
+              <div className="inner">
                 <h3>{this.state.customernumber}</h3>
 
                 <p>Müşteriler</p>
               </div>
-              <div class="icon">
-              <Link to='/customers' class="icon" ><i className="nav-icon fas fa-edit"></i> </Link>
+              <div className="icon">
+              <Link to='/customers' className="icon" ><i className="nav-icon fas fa-edit"></i> </Link>
               </div>
-              <Link to='/customerslist' class="small-box-footer">Daha fazla bilgi
- <i class="fas fa-arrow-circle-right"></i></Link>
+              <Link to='/customerslist' className="small-box-footer">Daha fazla bilgi
+ <i className="fas fa-arrow-circle-right"></i></Link>
             </div>
   </div>
   {/* ./col */}
@@ -97,13 +97,14 @@ window.location.replace('/')
     {/* small box */}
     <div className="small-box bg-danger">
       <div className="inner">
-        <h3>65</h3>
-        <p>Unique Visitors</p>
+        <h3>{this.state.failuresnumber}</h3>
+        <p>Bekleyen Arızalar</p>
       </div>
       <div className="icon">
         <i className="ion ion-pie-graph" />
       </div>
-      <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+      <Link to='/failureslist' className="small-box-footer">Daha fazla bilgi
+ <i className="fas fa-arrow-circle-right"></i></Link>
     </div>
   </div>
   {/* ./col */}

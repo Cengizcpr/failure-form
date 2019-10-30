@@ -11,36 +11,36 @@ const FailuresSchema = new Schema({
   },
   failures_species: {
     type: String,
-    required: true
+    
   },
   brand_name: {
     type: String,
-    required: true
+   
   },
    price: {
     type: String,
-    required: true
+   
   },
    note: {
     type: String,
-    required: true
+   
   },
   date: {
     type: Date,
     default: Date.now
   },
   failuresstate: {
-   type: String
+  
  }  ,  
  filename: {
   type: String,
-  required: true
+  
 },
 originalname: {
   type: String,
-  required: true
+  
 } 
-   
+    
 
 }/* ,{timestamps: true} */)
 

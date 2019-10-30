@@ -23,7 +23,7 @@ let b="",c=''
       failures_name:'',
       failures_species:'',
       multerImage:'',
-      
+      durum22:'',
       file: null,
       imagePreviewUrl: '',
       brand_name:'',
@@ -75,7 +75,7 @@ onSubmit(e){
    const files = document.getElementById('INPUT_TAG').files
   const formData = new FormData()
   formData.append('image', files[0])
- 
+  
     const newFailures= {
     failures_name: this.state.failures_name,
     failures_species: this.state.failures_species,
@@ -84,40 +84,28 @@ onSubmit(e){
     note: this.state.note,
    customer_name:b,
    failuresstate:c,
+   originalname:files[0].name
    
     
      } 
-     
-    
-  axios.post('failures/fregister', formData)
-      .then((response) => {
-          alert("The file is successfully uploaded");
-      }).catch((error) => {
-  });
-}
-  /* onSubmit(e)  {console.log(b)
-   e.preventDefault();
-  
-
-    const newFailures= {
-      failures_name: this.state.failures_name,
-      failures_species: this.state.failures_species,
-      brand_name: this.state.brand_name,
-      price: this.state.price,
-      note: this.state.note,
-     customer_name:b,
-     failuresstate:c
-    
-      
-       }
-      
-    
-   axios.post('failures/fregister',newFailures).then(res => {
-      window.location.replace('/home')
-    }) 
+        axios.post('failures/fregister', formData)
+  .then((response) => {
    
-  } */
+   axios.put('failures/fregister', newFailures)
+      .then((response) => {
+        window.location.replace('/home')
+
+      }).catch((error) => {
+  });     
+}).catch((error) => {
+});   
+     
+   
+  
  
+   
+}
+
   _handleSubmit(e) {
     e.preventDefault();
     let reader = new FileReader();
@@ -217,7 +205,7 @@ window.location.replace('/')
       <option>{this.state.durum} </option>
       <option>{this.state.durum2} </option>
     </select><br/>
-    <input type="text"  className="form-control" placeholder="Arıza Adı:"  name="failures_name"  value={this.state.failures_name}  onChange={this.onChange}   required /><br/>
+    <input type="text"  className="form-control" placeholder="Arıza Adı:"  name="failures_name" id="INPUT_TAS"  value={this.state.failures_name}  onChange={this.onChange}   required /><br/>
    
     <input type="text"  className="form-control" placeholder="Arıza Cinsi:"  name="failures_species"  value={this.state.failures_species}  onChange={this.onChange}  required /><br/>
    
@@ -232,7 +220,7 @@ window.location.replace('/')
           
    
   
-    </div>
+    </div>{this.state.durum22}
     {/* <div className="input-group">
   <div className="input-group-prepend">
   

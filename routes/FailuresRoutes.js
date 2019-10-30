@@ -6,23 +6,32 @@ const FailuresImage=require('../models/FailuresimageModel')
 failures.use(cors())
 const multer = require('multer')
 const path = require('path')
-const UPLOAD_PATH = path.resolve(__dirname, 'path/to/uploadedFiles')
+const UPLOAD_PATH = path.resolve(__dirname, '../src/path/to/uploadedFiles')
 const upload = multer({
   dest: UPLOAD_PATH,
   limits: {fileSize: 1000000, files: 5}
 })
-
-
 failures.post('/fregister' ,upload.array('image',5)   , (req, res) => {
+let a=''
+  const images =  req.files.map((file) => {
+    return {
+      filename: file.filename,
+      originalname: file.originalname,
+    }
+  
+  })   
+  Failures.insertMany(images, (err, result) => {
+    if (err) return res.sendStatus(404)
+    res.json(result)
+  })
+})
  
- const images = req.files.map((file) => {
-  return {
-    filename: file.filename,
-    originalname: file.originalname
-  }
-})   
+
+failures.put('/fregister', (req, res) => {
  
-/*  const today = new Date() 
+
+ 
+ const today = new Date() 
  const failureData = {
   customer_name: req.body.customer_name,
   failures_name: req.body.failures_name,
@@ -32,30 +41,22 @@ failures.post('/fregister' ,upload.array('image',5)   , (req, res) => {
   price: req.body.price,
   created: today,
   failuresstate:req.body.failuresstate,
- 
- }  */
-/*
+  originalname:req.body.originalname
+ }  
 
+console.log(req.body.originalname)
    Failures.findOne({
     failures_name: req.body.failures_name
   })
     .then(data => {
       if (!data) {
        
-          Failures.create(failureData)
+          Failures.update({originalname:req.body.originalname},failureData)
             .then(data => {
              res.json({ status: data.failures_name + 'Registered!' })
-           res.json({ message: "false"}) */
+           res.json({ message: "false"}) 
          
-           Failures.create(images, (err, result) => {
-            if (err) return res.sendStatus(404)
-            res.json(result)
-          })
-         /*    FailuresImage.insertMany(images, (err, result) => {
-              if (err) return res.sendStatus(404)
-              res.json(result)
-          })  }) */
-           /*  })
+            })
             .catch(err => {
               res.json({ message: "true"})
                
@@ -67,7 +68,7 @@ failures.post('/fregister' ,upload.array('image',5)   , (req, res) => {
     }) 
      .catch(err => {
       res.send('error: ' + err)
-    })    */
+    })    
 })
 failures.get('/flist', (req, res) => {
 

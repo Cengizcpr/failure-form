@@ -11,6 +11,10 @@ const FailuresimageSchema = new Schema({
 originalname: {
   type: String,
   required: true
+},
+customer_name:{
+  type: String,
+  required: true
 }
 
 

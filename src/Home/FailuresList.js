@@ -3,10 +3,10 @@ import React, { Component } from 'react'
 import Header from "./Header"
 import Menu from "./Menu"
 import jwt_decode from 'jwt-decode'
+import logo from '../path/to/uploadedFiles/407968a5635809790fa0f00f1f899dd6.jpeg'
 import {failureslist} from '../component/FailuresFunctions'
 import {failuresupdate} from '../component/FailuresFunctions'
 import {failuresdeletes} from '../component/FailuresFunctions'
-
 let statesetting=''
 
  class FailuresList extends Component {
@@ -237,9 +237,8 @@ yazdır(a){
     <input type="text"  className="form-control" placeholder="Müşteri Adresi:"  name="price"  value={this.state.price} onChange={this.onChange}  required /><br/>
 
     <input type="text"  className="form-control" placeholder="Müşteri Adresi:"  name="note"  value={this.state.note} onChange={this.onChange}  required /><br/>
-
     <button type="submit"  className="registerbtn btn-primary btn-block btn-flat" onClick={this.onSubmit}>Kaydet</button> </form>
-  
+  <img src={logo} style={{ width:'100mm', height: '100mm' }}/>
  
   </div> :null
 }

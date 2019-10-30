@@ -101,6 +101,10 @@ window.location.replace('/')
     </div>
       </div>
       </div>
+      <div className="text-right">
+      <button id="printInvoice" className="btn btn-info" onClick={()=>window.print()}><i className="fa fa-print" /> Print</button>
+      <button className="btn btn-info"><i className="fa fa-file-pdf-o" /> Export as PDF</button>
+    </div>
       </div>
 
     )

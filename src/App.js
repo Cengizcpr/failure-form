@@ -6,13 +6,14 @@ import Profile from "./Home/Profile"
 import Home from "./Home/Home"
 import Failures from "./Home/FailuresAdd"
 import FailuresList from "./Home/FailuresList"
-import Reports from "./Home/Reports"
+import Reports from "./Home/Mydocument"
 import Notfound from "./component/Notfound"
 import Customers from "./Home/Customers"
 import Customerslist from "./Home/Customerslist"
 class App extends Component {
   render() {
     return (
+
       <Router>
        <Switch>
           <Route exact path="/" component={login}/>
@@ -24,6 +25,8 @@ class App extends Component {
           <Route exact path="/reports" component={Reports}/>   
           <Route exact path="/customers" component={Customers}/>
           <Route exact path="/customerslist" component={Customerslist}/>
+          
+
           <Route exact  component={Notfound}/> 
           </Switch>
       </Router>

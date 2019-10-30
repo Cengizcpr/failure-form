@@ -9,13 +9,15 @@ export const failures = newFailures => {
         price: newFailures.price,
         note: newFailures.note,
         failuresstate:newFailures.failuresstate,
-        brand_name: newFailures.brand_name
-    })
+        brand_name: newFailures.brand_name,
+        data:newFailures.data,
+        
+      })
     .then(response => {
       console.log('Registered')
     })
     
-}
+} 
 export const failureslist = failures => {
   return axios
   

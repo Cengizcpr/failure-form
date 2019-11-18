@@ -2,32 +2,9 @@ const express = require('express')
 const failures = express.Router()
 const cors = require('cors')
 const Failures = require('../models/FailuresModel')
-const FailuresImage=require('../models/FailuresimageModel')
 failures.use(cors())
-const multer = require('multer')
-const path = require('path')
-const UPLOAD_PATH = path.resolve(__dirname, '../src/path/to/uploadedFiles')
-const upload = multer({
-  dest: UPLOAD_PATH,
-  limits: {fileSize: 1000000, files: 5}
-})
-failures.post('/fregister' ,upload.array('image',5)   , (req, res) => {
-let a=''
-  const images =  req.files.map((file) => {
-    return {
-      filename: file.filename,
-      originalname: file.originalname,
-    }
-  
-  })   
-  Failures.insertMany(images, (err, result) => {
-    if (err) return res.sendStatus(404)
-    res.json(result)
-  })
-})
- 
 
-failures.put('/fregister', (req, res) => {
+failures.post('/fregister', (req, res) => {
  
 
  
@@ -41,26 +18,14 @@ failures.put('/fregister', (req, res) => {
   price: req.body.price,
   created: today,
   failuresstate:req.body.failuresstate,
-  originalname:req.body.originalname
  }  
 
 console.log(req.body.originalname)
-   Failures.findOne({
-    failures_name: req.body.failures_name
-  })
+Failures.create(failureData)
     .then(data => {
       if (!data) {
        
-          Failures.update({originalname:req.body.originalname},failureData)
-            .then(data => {
-             res.json({ status: data.failures_name + 'Registered!' })
-           res.json({ message: "false"}) 
          
-            })
-            .catch(err => {
-              res.json({ message: "true"})
-               
-            })
        
       } else {
         res.json({ error: 'Failures already exists' })

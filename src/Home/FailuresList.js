@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import Header from "./Header"
 import Menu from "./Menu"
 import jwt_decode from 'jwt-decode'
-import logo from '../path/to/uploadedFiles/407968a5635809790fa0f00f1f899dd6.jpeg'
 import {failureslist} from '../component/FailuresFunctions'
 import {failuresupdate} from '../component/FailuresFunctions'
 import {failuresdeletes} from '../component/FailuresFunctions'
@@ -179,7 +178,7 @@ yazdır(a){
       <td>{data.note}</td> 
       <td>{data.date}</td> 
       <td style={{background:this.state.colors}}>{data.failuresstate}</td> 
-      <td><input type="button" className="btn btn-warning btn-flat " value={'Dışarı Aktar'}></input>&nbsp;&nbsp;&nbsp; <input type="button" className="btn btn-primary btn-flat " value={'Güncelle'} onClick={()=>this.operation(data)}></input>&nbsp;&nbsp;&nbsp;<input type="button" className="btn btn-danger  btn-flat " onClick={()=>this.deletefailures(data)} value={'Sil'} ></input></td> 
+      <td> <input type="button" className="btn btn-primary btn-flat " value={'Güncelle'} onClick={()=>this.operation(data)}></input>&nbsp;&nbsp;&nbsp;<input type="button" className="btn btn-danger  btn-flat " onClick={()=>this.deletefailures(data)} value={'Sil'} ></input></td> 
       </tr>
     ));
    
@@ -238,7 +237,6 @@ yazdır(a){
 
     <input type="text"  className="form-control" placeholder="Müşteri Adresi:"  name="note"  value={this.state.note} onChange={this.onChange}  required /><br/>
     <button type="submit"  className="registerbtn btn-primary btn-block btn-flat" onClick={this.onSubmit}>Kaydet</button> </form>
-  <img src={logo} style={{ width:'100mm', height: '100mm' }}/>
  
   </div> :null
 }

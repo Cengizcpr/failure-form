@@ -14,7 +14,9 @@ export default class Home extends Component {
     
     this.state = {
       customernumber:'',
-      failuresnumber:''
+      failuresnumber:'',
+      failuresstates:'',
+      failuresstateb:''
       };
   
 
@@ -31,10 +33,26 @@ export default class Home extends Component {
         
       })
     })
-    failureslist().then(res=>{
+    failureslist().then(res=>{  
+      var states=0,stateb=0;
+      for(var i=0;i<res.length;i++){
+      
+          if(res[i].failuresstate=='Yapıldı')
+       {
+        
+        states=states+1; 
+       }
+       else{
+        
+        stateb=stateb+1; 
+       }
+      }
       this.setState({
-        failuresnumber:res.length
+        failuresnumber:res.length,
+        failuresstates:states,
+        failuresstateb:stateb
       })
+   
     })
   }catch(error){
 window.location.replace('/')
@@ -68,7 +86,7 @@ window.location.replace('/')
     {/* small box */}
     <div className="small-box bg-warning">
       <div className="inner">
-        <h3>53</h3>
+        <h3>{this.state.failuresstates}</h3>
         <p>Yapılmakta olan</p>
       </div>
       <div className="icon">
@@ -97,7 +115,7 @@ window.location.replace('/')
     {/* small box */}
     <div className="small-box bg-danger">
       <div className="inner">
-        <h3>{this.state.failuresnumber}</h3>
+        <h3>{this.state.failuresstateb}</h3>
         <p>Bekleyen Arızalar</p>
       </div>
       <div className="icon">

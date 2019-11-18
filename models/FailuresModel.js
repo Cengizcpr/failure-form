@@ -31,18 +31,10 @@ const FailuresSchema = new Schema({
   },
   failuresstate: {
   
- }  ,  
- filename: {
-  type: String,
-  
-},
-originalname: {
-  type: String,
-  
-} 
+ } 
     
 
-}/* ,{timestamps: true} */)
+})
 
 
 module.exports = Failures = mongoose.model('failures', FailuresSchema)

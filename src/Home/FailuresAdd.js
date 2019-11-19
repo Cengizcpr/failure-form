@@ -142,13 +142,22 @@ window.location.replace('/')
       <div>
       <Header/>
       <Menu/>
-          
-      <div className="container">
-    <h3 className="text-center">Arıza Kaydı</h3>
-   
-    <hr />
-    <form noValidate onSubmit={this.onSubmit}>  
-    <select className="form-control"  onChange={this.handleChange} >
+      <br/>
+      <section className='content'>
+        <div className="container">
+  <div className='row'>
+          <div className="col-md-6">
+  {/* general form elements */}
+  <div className="card card-primary">
+    <div className="card-header">
+      <h3 className="card-title">Arıza Kaydı</h3>
+    </div>
+    {/* /.card-header */}
+    {/* form start */}
+    <form noValidate onSubmit={this.onSubmit}> 
+      <div className="card-body">
+      <div className="form-group">
+      <select className="form-control"  onChange={this.handleChange} >
       <option>Müşteri Seçiniz... </option>
       {customers}
     </select><br/>
@@ -156,18 +165,52 @@ window.location.replace('/')
       <option>Durum Seçiniz... </option>
       <option>{this.state.durum} </option>
       <option>{this.state.durum2} </option>
-    </select><br/>
-    <input type="text"  className="form-control" placeholder="Arıza Adı:"  name="failures_name" id="INPUT_TAS"  value={this.state.failures_name}  onChange={this.onChange}   required /><br/>
-   
-    <input type="text"  className="form-control" placeholder="Arıza Cinsi:"  name="failures_species"  value={this.state.failures_species}  onChange={this.onChange}  required /><br/>
-   
-    <input type="text"  className="form-control" placeholder="Marka Adı:"  name="brand_name"  value={this.state.brand_name}  onChange={this.onChange}    required /><br/>
-    <input type="text"  className="form-control" placeholder="Fiyatı:"  name="price"  value={this.state.price}  onChange={this.onChange}    required /><br/>
-    <input type="text"  className="form-control" placeholder="Not:"  name="note"  value={this.state.note}  onChange={this.onChange}    required /><br/>
-    <br/>
-    <button type="submit" className="registerbtn btn-primary btn-block btn-flat">Kaydet</button> </form>
-    
+    </select><br/></div>
+        <div className="form-group">
+
+          <label htmlFor="exampleInputEmail1">Arıza Adı</label>
+          <input type="text"  className="form-control" placeholder="Arıza Adı:"  name="failures_name" id="INPUT_TAS"  value={this.state.failures_name}  onChange={this.onChange}   required /><br/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Arıza Cinsi</label>
+          <input type="text"  className="form-control" placeholder="Arıza Cinsi:"  name="failures_species"  value={this.state.failures_species}  onChange={this.onChange}  required /><br/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Marka Adı </label>
+          <input type="text"  className="form-control" placeholder="Marka Adı:"  name="brand_name"  value={this.state.brand_name}  onChange={this.onChange}    required /><br/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputFile">Fiyat</label>
+          <div className="input-group">
+          <input type="text"  className="form-control" placeholder="Fiyatı:"  name="price"  value={this.state.price}  onChange={this.onChange}    required /><br/>
+
+            
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputFile">Not</label>
+          <div className="input-group">
+          <textarea type="text"  className="form-control" placeholder="Not:"  name="note"  value={this.state.note}  onChange={this.onChange}    required /><br/>
+
+            
+          </div>
+        </div>
+        
+     
+      </div>
+      {/* /.card-body */}
+      <div className="card-footer">
+        <button type="submit" className="btn btn-primary">Kaydet</button>
+      </div>
+    </form>
   </div>
+
+</div>
+
+</div> 
+  </div>
+  </section> 
+
   
 </div>
 

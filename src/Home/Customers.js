@@ -55,23 +55,55 @@ window.location.replace('/')
       <div>
       <Header/>
       <Menu/>
-      
+      <br></br>
+      <section className='content'>
         <div className="container">
-    <h3 className="text-center">Müşteri Kaydı</h3>
-   
-    <hr />
-    <form noValidate onSubmit={this.onSubmit}>  
-    <input type="text"  className="form-control" placeholder="Müşteri Adı:"  name="first_name"  value={this.state.first_name}  onChange={this.onChange} required /><br/>
-   
-    <input type="text"  className="form-control" placeholder="Müşteri Soyadı:"  name="last_name"  value={this.state.last_name}  onChange={this.onChange} required /><br/>
-   
-    <input type="text"  className="form-control" placeholder="Müşteri Telefon No:"  name="phone_no"  value={this.state.phone_no}  onChange={this.onChange} required /><br/>
-    <input type="text"  className="form-control" placeholder="Müşteri Adresi:"  name="adress"  value={this.state.adress}  onChange={this.onChange} required /><br/>
+  <div className='row'>
+          <div className="col-md-6">
+  {/* general form elements */}
+  <div className="card card-primary">
+    <div className="card-header">
+      <h3 className="card-title">Müşteri Kaydı</h3>
+    </div>
+    {/* /.card-header */}
+    {/* form start */}
+    <form noValidate onSubmit={this.onSubmit}> 
+      <div className="card-body">
+        <div className="form-group">
+          <label htmlFor="exampleInputEmail1">Müşteri Adı</label>
+          <input type="text"  className="form-control" placeholder="Müşteri Adı:"  name="first_name"  value={this.state.first_name}  onChange={this.onChange} required /><br/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Müşteri Soyadı</label>
+          <input type="text"  className="form-control" placeholder="Müşteri Soyadı:"  name="last_name"  value={this.state.last_name}  onChange={this.onChange} required /><br/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Müşteri Telefon No</label>
+          <input type="text"  className="form-control" placeholder="Müşteri Telefon No:"  name="phone_no"  value={this.state.phone_no}  onChange={this.onChange} required /><br/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputFile">Müşteri Adresi</label>
+          <div className="input-group">
+          <input type="text"  className="form-control" placeholder="Müşteri Adresi:"  name="adress"  value={this.state.adress}  onChange={this.onChange} required /><br/>
 
-   
-    <button type="submit" className="registerbtn btn-primary btn-block btn-flat">Kaydet</button> </form>
+            
+          </div>
+        </div>
+        
+     
+      </div>
+      {/* /.card-body */}
+      <div className="card-footer">
+        <button type="submit" className="btn btn-primary">Kaydet</button>
+      </div>
+    </form>
   </div>
-  
+
+</div>
+
+</div> 
+  </div>
+  </section>
 </div>
 
 

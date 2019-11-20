@@ -8,6 +8,9 @@ import { register } from './UserFunctions'
     this.state = {
       first_name: '',
       last_name: '',
+      company_name:'',
+      phone_no:'',
+      adress:'',
       email: '',
       password: '',
       errors: {}
@@ -27,7 +30,10 @@ import { register } from './UserFunctions'
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      company_name:this.state.company_name,
+      phone_no:this.state.phone_no,
+      adress:this.state.adress
     }
 
     register(newUser).then(res => {
@@ -38,14 +44,14 @@ render(){
     return (
         <div className="register-box">
   <div className="register-logo">
-  <Link to="/register"><b>Admin</b>LTE</Link>
+  <Link to="/register"><b>Arıza</b>Takip</Link>
   </div>
   <div className="card">
     <div className="card-body register-card-body">
-      <p className="login-box-msg">Register a new membership</p>
+     
       <form noValidate onSubmit={this.onSubmit}>        <div className="input-group mb-3">
      
-          <input type="text" className="form-control" placeholder="Full name"  name="first_name"  value={this.state.first_name}  onChange={this.onChange} />
+          <input type="text" className="form-control" placeholder="Ad"  name="first_name"  value={this.state.first_name}  onChange={this.onChange} />
           <div className="input-group-append">
             <div className="input-group-text">
               <span className="fas fa-user" />
@@ -54,7 +60,7 @@ render(){
         </div>
         <div className="input-group mb-3">
        
-          <input type="text" className="form-control" placeholder="Last name"  name="last_name"  value={this.state.last_name}  onChange={this.onChange} />
+          <input type="text" className="form-control" placeholder="Soyad"  name="last_name"  value={this.state.last_name}  onChange={this.onChange} />
           <div className="input-group-append">
             <div className="input-group-text">
               <span className="fas fa-user" />
@@ -62,7 +68,7 @@ render(){
           </div>
         </div>
         <div className="input-group mb-3"> 
-          <input type="email" className="form-control" placeholder="Email" name="email"  value={this.state.email}  onChange={this.onChange} />
+          <input type="email" className="form-control" placeholder="Email adresi" name="email"  value={this.state.email}  onChange={this.onChange} />
           <div className="input-group-append">
             <div className="input-group-text">
               <span className="fas fa-envelope" />
@@ -70,24 +76,50 @@ render(){
           </div>
         </div>
         <div className="input-group mb-3">  
-          <input type="password" className="form-control" placeholder="Password"   name="password"  value={this.state.password}  onChange={this.onChange} />
+          <input type="password" className="form-control" placeholder="Şifre"   name="password"  value={this.state.password}  onChange={this.onChange} />
           <div className="input-group-append">
             <div className="input-group-text">
               <span className="fas fa-lock" />
             </div>
           </div>
         </div>
-      
+        <div className="input-group mb-3">
+       
+       <input type="text" className="form-control" placeholder="Şirket Adı"  name="company_name"  value={this.state.company_name}  onChange={this.onChange} />
+       <div className="input-group-append">
+         <div className="input-group-text">
+           <span className="fas fa-user" />
+         </div>
+       </div>
+     </div>
+     <div className="input-group mb-3">
+       
+       <input type="text" className="form-control" placeholder="Telefon No"  name="phone_no"  value={this.state.phone_no}  onChange={this.onChange} />
+       <div className="input-group-append">
+         <div className="input-group-text">
+           <span className="fas fa-phone" />
+         </div>
+       </div>
+     </div>
+     <div className="input-group mb-3">
+       
+       <textarea type="text" className="form-control" placeholder="Şirket Adresi"  name="adress"  value={this.state.adress}  onChange={this.onChange} />
+       <div className="input-group-append">
+         <div className="input-group-text">
+           <span className="fas fa-map-marker" />
+         </div>
+       </div>
+     </div>
         <div className="row">
           
           <div className="col-4">
-            <button type="submit" className="btn btn-primary btn-block btn-flat">Register</button>
+            <button type="submit" className="btn btn-primary btn-block btn-flat">Kayıt Ol</button>
           </div>
           {/* /.col */}
         </div>
       </form>
     
-      <Link to="/" className="text-center">I already have a membership</Link>
+      <Link to="/" className="text-center">Bir hesabım var </Link>
     </div>
     {/* /.form-box */}
   </div>{/* /.card */}

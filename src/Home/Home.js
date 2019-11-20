@@ -75,7 +75,7 @@
       {/* small box */}
       <div className="small-box bg-info">
         <div className="inner">
-          <h3>{this.state.kasa}</h3>
+          <h3>{this.state.kasa}₺</h3>
           <p>Kasa </p>
         </div>
         <div className="icon">

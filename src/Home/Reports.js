@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import {Document, Page,Text, StyleSheet, View} from '@react-pdf/renderer';
+import {StyleSheet} from '@react-pdf/renderer';
 import Printer, { print } from 'react-pdf-print'
 import {failureslist} from '../component/FailuresFunctions'
 import jwt_decode from 'jwt-decode'
 import Header from "./Header"
 import Menu from "./Menu"
-
+import {getProfile} from '../component/UserFunctions'
+import {customerlist} from '../component/CustomerFunctions'
 
 const ids = ['1']
 
@@ -35,10 +36,16 @@ constructor(){
   this.state={
     cname:'',
     fname:'',
+    cadress:'',
     fspecies:'',
     bname:'',
     fprice:'',
     fnote:'',
+    ucompany:'',
+    uadress:'',
+    uphone:'',
+    uemail:'',
+    cphone:'',
     showMe:true,
       showMe2:false,
       showMe3:false,
@@ -52,11 +59,13 @@ constructor(){
     const token = localStorage.usertoken
   try{
     jwt_decode(token)
-  
-  failureslist().then(res=>{
+    const decoded = jwt_decode(token)
+ 
+    failureslist().then(res=>{
     this.setState({
       ad:res[0].customer_name,
-      locations:res
+      locations:res,
+      uemail:decoded.email
     })
   })
   
@@ -67,12 +76,43 @@ window.location.replace('/')
   }
   prints(a)
   {
+    console.log(a.customer_name)
+    customerlist().then(res=>{
+    for(var i=0;i<res.length;i++){
+    if(res[i].first_name+' '+res[i].last_name==a.customer_name)
+      this.setState({
+      
+      cphone:res[i].phone_no,
+      cadress:res[i].adress
+    })
+    }
+  })
+    getProfile().then(res=>{
+    
+      for(var i=0;i<res.length;i++){
+       if(this.state.uemail==res[i].email)
+       {
+       this.setState({
+            
+            uadress:res[i].adress,
+            ucompany:res[i].company_name,
+            uemail:res[i].email,
+            uphone:res[i].phone_no
+
+
+          
+
+        })
+      }
+      }
+    })
     this.setState({
       cname:a.customer_name,
       fname:a.failures_name,
       fspecies:a.failures_species,
       bname:a.brand_name,
       fprice:a.price,
+      cphone:a.phone_no,
       fnote:a.note,
       showMe:false,
       showMe2:true,
@@ -91,7 +131,7 @@ window.location.replace('/')
       <td>{data.failures_species} </td> 
       <td>{data.brand_name}</td> 
       <td>{data.price}</td> 
-      <td>{data.note}</td> 
+      <td>{data.note}</td>
       <td> <input type="button" className="btn btn-warning  btn-flat " onClick={()=>this.prints(data)} value={'Rapor Oluştur'} ></input></td>
       
       </tr>
@@ -168,17 +208,17 @@ window.location.replace('/')
             <div className="col-md-6">
               <p className="font-weight-bold mb-4">Müşteri Bilgisi</p>
               <p className="mb-1">{this.state.cname}</p>
-              <p>05355285698</p>
-              <p className="mb-1">Ankara, Türkiye</p>
+              <p>{this.state.cphone}</p>
+              <p className="mb-1">{this.state.cadress}</p>
               
             </div>
             <div className="col-md-6 text-right">
             
               <p className="font-weight-bold mb-4">Şirket Hakkında</p>
-              <p className="mb-1"><span className="text-muted">Adı: </span>Anonim Tic.Ltd.Şti. </p>
-              <p className="mb-1"><span className="text-muted">Telefon: </span> 1425782</p>
-              <p className="mb-1"><span className="text-muted">Eposta: </span> info@gmail.com</p>
-              <p className="mb-1"><span className="text-muted">Adres: </span> Ankara</p>
+              <p className="mb-1"><span className="text-muted">Adı: </span>{this.state.ucompany} </p>
+              <p className="mb-1"><span className="text-muted">Telefon: </span> {this.state.uphone}</p>
+              <p className="mb-1"><span className="text-muted">Eposta: </span> {this.state.uemail}</p>
+              <p className="mb-1"><span className="text-muted">Adres: </span> {this.state.uadress}</p>
               
             </div>
           </div>
@@ -215,8 +255,8 @@ window.location.replace('/')
             </div>
           </div><div className="d-flex flex-row-reverse  p-4">
             <div className="py-3 px-5 text-right">
-            <div className="mb-2"> <p className="font-weight-bold mb-4">Fiyat
-          {this.state.fprice}+KDV</p></div>
+            <div className="mb-2"> <p className="font-weight-bold mb-4">Fiyat: 
+          {this.state.fprice}₺</p></div>
             </div>
            
            

@@ -8,7 +8,7 @@ class Login extends Component {
       email: '',
       password: '',
       errors: {},
-      cevap:'Sign in to start your session ',
+      cevap:'Oturumunuzu başlatmak giriş yapın',
       
     }
 
@@ -35,7 +35,7 @@ class Login extends Component {
         this.setState({
           email:"",
           password:"",
-          cevap:"Email or Password wrong"
+          cevap:"Email adresi veya Şifre yanlış"
         })
       }
       else{
@@ -46,11 +46,7 @@ class Login extends Component {
      
     })
 
-   /* login(user).catch(res => {
-    
-     
    
-  })*/
     
   }
 
@@ -59,7 +55,7 @@ render(){
     return (
        <div className="login-box">
   <div className="login-logo">
-    <Link to="/"><b>Admin</b>LTE</Link>
+    <Link to="/"><b>Arıza</b>Takip</Link>
   </div>
   {/* /.login-logo */}
   <div className="card">
@@ -67,7 +63,7 @@ render(){
       <h5 className="login-box-msg login-box-danger">{this.state.cevap}</h5>
       <form noValidate onSubmit={this.onSubmit}>
         <div className="input-group mb-3">
-          <input type="email" className="form-control" name="email" placeholder="Email" value={this.state.email} onChange={this.onChange} />
+          <input type="email" className="form-control" name="email" placeholder="Email adresi" value={this.state.email} onChange={this.onChange} />
           <div className="input-group-append">
             <div className="input-group-text">
               <span className="fas fa-envelope" />
@@ -75,7 +71,7 @@ render(){
           </div>
         </div>
         <div className="input-group mb-3">
-          <input type="password" className="form-control" name="password" placeholder="Password"  value={this.state.password}  onChange={this.onChange} />
+          <input type="password" className="form-control" name="password" placeholder="Şifre"  value={this.state.password}  onChange={this.onChange} />
           <div className="input-group-append">
             <div className="input-group-text">
               <span className="fas fa-lock" />
@@ -85,12 +81,12 @@ render(){
         <div className="row">
           
         <div className="col-4">
-            <button type="submit" className="btn btn-primary btn-block btn-flat">Sign In</button>
+            <button type="submit" className="btn btn-primary btn-block btn-flat">Giriş Yap</button>
           </div>
           {/* /.col */}
         </div>
       </form>
-      <Link to="/register" className="text-center">Register a new membership</Link>
+      <Link to="/register" className="text-center">Yeni Üye Ol</Link>
      
      
     </div>

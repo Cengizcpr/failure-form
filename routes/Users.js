@@ -16,7 +16,10 @@ users.post('/register', (req, res) => {
     last_name: req.body.last_name,
     email: req.body.email,
     password: req.body.password,
-    created: today
+    created: today,
+    adress:req.body.adress,
+    phone_no:req.body.phone_no,
+    company_name:req.body.company_name
   }
 
   User.findOne({
@@ -78,17 +81,18 @@ users.post('/login', (req, res) => {
 })
 
 users.get('/profile', (req, res) => {
-  var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
 
-  User.findOne({
-    _id: decoded._id
-  //  email: req.body.email
+  User.find({},function(err,objs){
+    var dbs=objs[0];
+    //console.log(dbs);
+    return dbs
   })
     .then(user => {
       if (user) {
+       
         res.json(user)
       } else {
-        res.json('User does not exist')
+        res.json({ error: 'Customer already exists' })
       }
     })
     .catch(err => {

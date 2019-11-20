@@ -7,9 +7,9 @@ import Header from "./Header"
 import Menu from "./Menu"
 import {getProfile} from '../component/UserFunctions'
 import {customerlist} from '../component/CustomerFunctions'
-
-const ids = ['1']
-
+import Page from './Page';
+/* import SinglePage from './SinglePage'
+ */import PrintButton from "./PrintButton";
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   }
 });
 
-class Mydocument extends Component {
+class Reports extends Component {
 
 constructor(){
   super()
@@ -180,17 +180,17 @@ window.location.replace('/')
 {this.state.showMe3? 
   <div className="text-right" style={{position:"relative",top:'50px',right:'30px'}}>
         <button id="printInvoice" className="btn btn-info" onClick={()=>window.print()}><i className="fa fa-print" /> Yazdır</button>
-        <button className="btn btn-info"   onClick={() => print(ids)}><i className="fa fa-file-pdf-o" /> PDF Dışa Aktar</button>
+          <PrintButton id={"singlePage"}  label={"Pdf İndir"}  />
      
         </div>   :null
       }
 
 
-  <div className="container" style={styles.arka}> 
-{this.state.showMe2?  <Printer>
- 
-  <div className="container" style={{  width:'210mm', height: '297mm'}}>
-  <div className="row"  id={ids[0]}>
+  <div className="container" style={styles.arka} id={"singlePage"}> 
+{this.state.showMe2? 
+  <Page singleMode={true} id={"singlePage"}>
+   <div className="container" style={{  width:'210mm', height: '297mm'}}>
+  <div className="row"  >
     <div className="col-12">
       <div className="card">
         <div className="card-body p-2">
@@ -275,17 +275,17 @@ window.location.replace('/')
     </div>
   </div>
   
-</div></Printer>
+</div>
+  
+</Page>
   :null
   }
 </div>
   </div>
 
-   
- 
-
   );
   }
 }
 
-export default Mydocument;
+export default Reports
+

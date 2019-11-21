@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {StyleSheet} from '@react-pdf/renderer';
-import Printer, { print } from 'react-pdf-print'
 import {failureslist} from '../component/FailuresFunctions'
 import jwt_decode from 'jwt-decode'
 import Header from "./Header"

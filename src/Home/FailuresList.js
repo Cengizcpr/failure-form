@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-
 import Header from "./Header"
 import Menu from "./Menu"
+import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import {failureslist} from '../component/FailuresFunctions'
 import {failuresupdate} from '../component/FailuresFunctions'
 import {failuresdeletes} from '../component/FailuresFunctions'
-let statesetting=''
 
+let statesetting=''
+const a=''
  class FailuresList extends Component {
    
   constructor() {
@@ -35,6 +36,7 @@ let statesetting=''
       failures_species: '',
       customername_pdf:'',
       failuresname_pdf:'',
+      profileImg: '',
       failuresspecies_pdf:'',
       brandname_pdf:'',
       price_pdf:'',
@@ -46,16 +48,21 @@ let statesetting=''
       colors:'',
       _id:'',
       durum:'Beklemede',
-     durum2:'Yapıldı'
+     durum2:'Yapıldı',
+     imagepath:''
       
   
       };
     
-      
-     
+
+      this.onFileChange = this.onFileChange.bind(this);
+
       this.onChange = this.onChange.bind(this)
       this.onSubmit = this.onSubmit.bind(this)
   }
+  onFileChange(e) {
+    this.setState({ profileImg: e.target.files[0] })
+}
   deletefailures(data)  {
     const a=data._id
     failuresdeletes({_id:a}).then(res=>
@@ -72,7 +79,7 @@ let statesetting=''
     this.setState({ [e.target.name]: e.target.value })
   }
   operation(a){
- 
+ console.log(a.profileImg)
     this.setState({
       showMe2:true,
       showMe:false,
@@ -83,13 +90,15 @@ let statesetting=''
       price:a.price,
       note:a.note,
       failuresstate:a.failuresstate,
-       _id:a._id
+       _id:a._id,
+      imagepath:a.profileImg
     }) 
+   // console.log(this.state.imagepath)
+   a=this.state.imagepath
   }  
   componentDidMount(e) {
    
     
-   
     const token = localStorage.usertoken
   try{
     jwt_decode(token)
@@ -131,25 +140,24 @@ yazdır(a){
 }
   onSubmit(e) {
  console.log(statesetting);
-    const newCustomer = {
-      customer_name: this.state.customer_name,
-      failures_name: this.state.failures_name,
-      failures_species: this.state.failures_species,
-      brand_name: this.state.brand_name,
-      price: this.state.price,
-      note: this.state.note,
-      _id:this.state._id,
-      failuresstate:statesetting
+ const formData = new FormData()
+ formData.append('profileImg', this.state.profileImg)
+ formData.append('customer_name', this.state.customer_name)
+ formData.append('failures_name', this.state.failures_name)
+ formData.append('brand_name', this.state.brand_name)
+ formData.append('price', this.state.price)
+ formData.append('note', this.state.note)
+ formData.append('failuresstate', this.state.failuresstate)
+  
     
-    }
-      failuresupdate(newCustomer).then(res => {
+    axios.put('failures/flist', formData)
+    .then((response) => {
       window.location.replace('/home')
-    })
-    failuresupdate(newCustomer).catch(err=>{
-      window.location.replace('/customer')
-    })
-     
+
+  }).catch((error) => {
+  });   
   }
+  
   createpdf(data){
 
     this.setState({
@@ -168,6 +176,7 @@ yazdır(a){
    
 
       const cities=this.state.locations.map(data => (
+        
       <tr key={data._id}>
       <td  name="_id"  value={this.state._id}>{data._id}</td>
       <td value={this.state.customername_pdf} >{data.customer_name}</td>
@@ -177,7 +186,7 @@ yazdır(a){
       <td>{data.price}</td> 
       <td>{data.note}</td> 
       <td>{data.date}</td> 
-      <td style={{background:this.state.colors}}>{data.failuresstate}</td> 
+      <td value={data.profileImg}>{data.failuresstate}</td> 
       <td> <input type="button" className="btn btn-primary btn-flat " value={'Güncelle'} onClick={()=>this.operation(data)}></input>&nbsp;&nbsp;&nbsp;<input type="button" className="btn btn-danger  btn-flat " onClick={()=>this.deletefailures(data)} value={'Sil'} ></input></td> 
       </tr>
     ));
@@ -216,29 +225,83 @@ yazdır(a){
     :null
   }
   </div>
-  {this.state.showMe2? <div  className="container"> 
-  <h3 className="text-center">Arıza Güncelleme</h3>
-   
-   <hr />
-    <form >
-    <input type="text"  className="form-control" placeholder="Müşteri Telefon No:"  name="customer_name"  value={this.state.customer_name} onChange={this.onChange}  required  /><br/>
-    <select className="form-control"  onChange={this.handleChange} >
+  {this.state.showMe2?   <section className='content'>
+        <div className="container">
+  <div className='row'>
+          <div className="col-md-6">
+  {/* general form elements */}
+  <div className="card card-primary">
+    <div className="card-header">
+      <h3 className="card-title">Arıza Güncelleme</h3>
+    </div>
+    {/* /.card-header */}
+    {/* form start */}
+    <form noValidate onSubmit={this.onSubmit}> 
+      <div className="card-body">
+      <div className="form-group">
+
+<label htmlFor="exampleInputEmail1">Müşteri Adı Soyadı</label>
+<input type="text"  className="form-control"  name="customer_name"  value={this.state.customer_name} onChange={this.onChange}  required  />
+</div>   
+
+   <div className="form-group">  <label htmlFor="exampleInputEmail1">Durum Seçiniz</label> <select className="form-control"  onChange={this.handleChange} >
       <option>Durum Seçiniz... </option>
       <option>{this.state.durum} </option>
       <option>{this.state.durum2} </option>
-    </select><br/>
-       <input type="text"  className="form-control"   name="failures_name"  value={this.state.failures_name} onChange={this.onChange}  required /><br/>
+    </select></div>
+        <div className="form-group">
 
-    <input type="text"  className="form-control"  name="failures_species"  value={this.state.failures_species} onChange={this.onChange}   required /><br/>
-   
-    <input type="text"  className="form-control"   name="brand_name"  value={this.state.brand_name} onChange={this.onChange}  required /><br/>
- 
-    <input type="text"  className="form-control" placeholder="Müşteri Adresi:"  name="price"  value={this.state.price} onChange={this.onChange}  required /><br/>
+          <label htmlFor="exampleInputEmail1">Arıza Adı</label>
+          <input type="text"  className="form-control"   name="failures_name"  value={this.state.failures_name} onChange={this.onChange}  required />    <br/>    </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Arıza Cinsi</label>
+          <input type="text"  className="form-control"  name="failures_species"  value={this.state.failures_species} onChange={this.onChange}   required /><br/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Marka Adı </label>
+          <input type="text"  className="form-control"   name="brand_name"  value={this.state.brand_name} onChange={this.onChange}  required /><br/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputFile">Fiyat</label>
+          <div className="input-group">
+          <input type="text"  className="form-control"  name="price"  value={this.state.price} onChange={this.onChange}  required /><br/>
 
-    <input type="text"  className="form-control" placeholder="Müşteri Adresi:"  name="note"  value={this.state.note} onChange={this.onChange}  required /><br/>
-    <button type="submit"  className="registerbtn btn-primary btn-block btn-flat" onClick={this.onSubmit}>Kaydet</button> </form>
- 
-  </div> :null
+            
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputFile">Not</label>
+          <div className="input-group">
+          <input type="text"  className="form-control"   name="note"  value={this.state.note} onChange={this.onChange}  required /><br/>
+
+          <label value={this.state.imagepath}></label>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+                                    <label for="exampleFormControlFile1">Ürün İlk Hali</label>
+                                    <img src={require(('../uploads/'+this.state.imagepath))} style={{width: '500px',height:'500px'}}/><br/>
+                                </div>
+
+      <div class="form-group">
+         <label for="exampleFormControlFile1">Resmi Yükle</label>
+          <input type="file"  class="form-control-file" onChange={this.onFileChange} />
+    </div>
+     
+      </div>
+      {/* /.card-body */}
+      <div className="card-footer">
+        <button type="submit" className="btn btn-primary">Kaydet</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+</div> 
+  </div>
+  </section>  :null
 }
 </div>
 

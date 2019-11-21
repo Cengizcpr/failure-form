@@ -3,12 +3,52 @@ const failures = express.Router()
 const cors = require('cors')
 const Failures = require('../models/FailuresModel')
 failures.use(cors())
+let multer = require('multer');
+ let uuidv4 = require('uuid/v4');
+ const DIR = './src/uploads';
 
-failures.post('/fregister', (req, res) => {
+ const storage = multer.diskStorage({
+     destination: (req, file, cb) => {
+         cb(null, DIR);
+     },
+     filename: (req, file, cb) => {
+         const fileName = file.originalname.toLowerCase().split(' ').join('-');
+         cb(null, uuidv4() + '-' + fileName)
+     }
+ });
  
+ var upload = multer({
+     storage: storage,
+     fileFilter: (req, file, cb) => {
+         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+             cb(null, true);
+         } else {
+             cb(null, false);
+             return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+         }
+     }
+ });
+failures.put('/fregister', upload.single('profileImg','failures_name'), (req, res, next) => {
+console.log(req.body.failures_name)
 
- 
- const today = new Date() 
+  const customerData = {
+    failures_name:req.body.failures_name,
+    profileImg: req.file.filename
+   
+  }
+  Failures.update({failures_name:req.body.failures_name},customerData,function(err,objs){ })
+  .then(objs=> {
+     
+    res.json(objs)
+  })
+  .catch(err=>{
+    res.json({ error: 'Customer already exists' })
+  })
+
+})
+failures.post('/fregister',(req, res )=> {
+  
+  const today = new Date() 
  const failureData = {
   customer_name: req.body.customer_name,
   failures_name: req.body.failures_name,
@@ -18,9 +58,9 @@ failures.post('/fregister', (req, res) => {
   price: req.body.price,
   created: today,
   failuresstate:req.body.failuresstate,
- }  
-
-console.log(req.body.originalname)
+  profileImg:''
+  }  
+a=req.body.failures_name;
 Failures.create(failureData)
     .then(data => {
       if (!data) {
@@ -33,7 +73,7 @@ Failures.create(failureData)
     }) 
      .catch(err => {
       res.send('error: ' + err)
-    })    
+    })   
 })
 failures.get('/flist', (req, res) => {
 
@@ -54,28 +94,25 @@ failures.get('/flist', (req, res) => {
       res.send('error: ' + err)
     })
 })
-failures.put('/flist', (req, res) => {
-  const customerData = {
-    customer_name: req.body.customer_name,
-    failures_name: req.body.failures_name,
-    failures_species: req.body.failures_species,
-    brand_name: req.body.brand_name,
-    price: req.body.price,
-    note: req.body.note,
-    _id:req.body._id,
-    failuresstate:req.body.failuresstate
-  }
-  Failures.update({_id:req.body._id},customerData,function(err,objs){ })
+failures.put('/flist', upload.single('profileImg','customer_name','failures_name','brand_name','price','note','failuresstate'), (req, res, next) => {
+  
+    const customerData = {
+      profileImg: req.file.filename,
+      customer_name:req.body.customer_name,
+      brand_name:req.body.brand_name,
+      price:req.body.price,
+      failuresstate:req.body.failuresstate,
+      note:req.body.note
+    }
+    Failures.update({failures_name:req.body.failures_name},customerData,function(err,objs){ })
     .then(objs=> {
        
       res.json(objs)
     })
     .catch(err=>{
-      res.json({ error: 'Failures already exists' })
+      res.json({ error: 'Customer already exists' })
     })
- 
-
-})
+  })
 failures.post('/flist', (req, res) => {
   console.log(req.body._id)
 

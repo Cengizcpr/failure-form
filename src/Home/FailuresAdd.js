@@ -22,7 +22,7 @@ let b="",c=''
       failures_species:'',
       multerImage:'',
       durum22:'',
-      file: null,
+      profileImg: '',
       imagePreviewUrl: '',
       brand_name:'',
       price:'',
@@ -35,11 +35,13 @@ let b="",c=''
       };    
       this.onChange = this.onChange.bind(this)
       this.onSubmit = this.onSubmit.bind(this)
-  
+      this.onFileChange = this.onFileChange.bind(this);
 
     
   }
-
+  onFileChange(e) {
+    this.setState({ profileImg: e.target.files[0] })
+}
   onChange(e) {
 
   
@@ -71,7 +73,9 @@ handleChange2 = (e) => {
 onSubmit(e){
   e.preventDefault();
   
-  
+  const formData = new FormData()
+  formData.append('profileImg', this.state.profileImg)
+
     const newFailures= {
     failures_name: this.state.failures_name,
     failures_species: this.state.failures_species,
@@ -80,18 +84,23 @@ onSubmit(e){
     note: this.state.note,
    customer_name:b,
    failuresstate:c,
+      formData
+   
+
    
     
      } 
+     formData.append('failures_name',this.state.failures_name)
         axios.post('failures/fregister', newFailures)
   .then((response) => {
+    axios.put('failures/fregister',formData)
+  .then((response) => {
+    
     window.location.replace('/home')
-
+  }) 
 }).catch((error) => {
 });   
-     
-   
-  
+
  
    
 }
@@ -114,19 +123,7 @@ window.location.replace('/')
   }
 
 
-    onChangeHandler=event=>{
-      var file = event.target.files[0];
-      console.log(file);
-      console.log(this.validateSize(event));
-      if(this.validateSize(event)){ 
-        console.log(file);
-    // if return true allow to setState
-       this.setState({
-        selectedFile: file
-        });
-   
-      }
-    }
+  
     
   render() { 
    
@@ -195,7 +192,11 @@ window.location.replace('/')
             
           </div>
         </div>
-        
+
+        <div class="form-group">
+                                    <label for="exampleFormControlFile1">Resmi Yükle</label>
+                                    <input type="file"  class="form-control-file" onChange={this.onFileChange} />
+                                </div>
      
       </div>
       {/* /.card-body */}

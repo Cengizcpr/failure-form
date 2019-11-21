@@ -31,7 +31,10 @@ const FailuresSchema = new Schema({
   },
   failuresstate: {
   
- } 
+ } ,
+ profileImg: {
+        type: String
+    }
     
 
 })

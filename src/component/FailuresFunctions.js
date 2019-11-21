@@ -42,7 +42,7 @@ export const failuresupdate = failures => {
     note: failures.note,
     brand_name: failures.brand_name,
     failuresstate:failures.failuresstate,
-
+    profileImg:failures.profileImg,
       _id:failures._id
 
       

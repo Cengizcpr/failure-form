@@ -294,7 +294,7 @@ formData.append('failures_name',this.state.failures_name)
         </div>
 
         <div class="form-group">
-                                    <label for="exampleFormControlFile1">Ürün İlk Hali</label>
+                                    <label for="exampleFormControlFile1">Ürün Resmi</label>
                                     <img src={require(('../uploads/'+this.state.imagepath))} style={{width: '500px',height:'500px'}}/><br/>
                                 </div>
 

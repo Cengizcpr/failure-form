@@ -94,7 +94,7 @@ render(){
      </div>
      <div className="input-group mb-3">
        
-       <input type="text" className="form-control" placeholder="Telefon No"  name="phone_no"  value={this.state.phone_no}  onChange={this.onChange} />
+       <input type="number" className="form-control" placeholder="Telefon No"  name="phone_no"  value={this.state.phone_no}  onChange={this.onChange} />
        <div className="input-group-append">
          <div className="input-group-text">
            <span className="fas fa-phone" />

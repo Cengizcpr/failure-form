@@ -146,13 +146,14 @@ window.location.replace('/')
   return (
      <div>
     <Header/>
-    <Menu/>{this.state.showMe?
-    <div className="container">
-    <div className="card-body">
-  
-    
+    <Menu/><div className="content-wrapper"> 
+     
+     <div className="card">
+     
+ <div className="card-body"> <h1 className='container' style={styles.yazi}></h1>{this.state.showMe?
+   
         
-              <h1 className='container' style={styles.yazi}></h1>
+             
             <table id="students" className="table table-bordered table-striped" > 
       <thead>
         <tr >
@@ -177,12 +178,12 @@ window.location.replace('/')
 
    
 
-  
-    </div> 
- </div>  
+
  :null
 }
- 
+ </div> 
+ </div>
+  </div>
   
 {this.state.showMe3? 
   <div className="text-right" style={{position:"relative",top:'50px',right:'30px'}}>

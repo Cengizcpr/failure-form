@@ -3,8 +3,12 @@ import {Link} from 'react-router-dom'
 export default class Menu extends Component {
   render() {
     return (
-      <div>
-      <aside className="main-sidebar sidebar-dark-primary elevation-4">
+      <div className="content-wrapper">
+          
+        <div className="content-header"> 
+         <div className="row">
+    <div className="col-lg-3 col-6">
+    <aside className="main-sidebar sidebar-dark-primary elevation-4">
         {/* Brand Logo */}
         <Link to='/home'  className="brand-link">
           <img src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
@@ -93,12 +97,15 @@ export default class Menu extends Component {
                
              </ul>
           </nav>
-          {/* /.sidebar-menu */}
-        </div>
+          </div>
         {/* /.sidebar */}
       </aside>
-    </div>
-    
+      </div>
+      </div>
+      </div>
+      </div>
+
+
 
     )
   }

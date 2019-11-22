@@ -99,10 +99,15 @@ const a=''
    
 
 console.log(a.profileImg)
-    if(a.profileImg=='')
+    if(a.profileImg==null)
     {
       this.setState({
         imagepath:"f0f2e0d5-f180-415a-a523-026cbddf9b39-pagenotfound1.png"
+      })
+    }
+    else{
+      this.setState({
+        imagepath:a.profileImg
       })
     }
     
@@ -151,8 +156,8 @@ window.location.replace('/')
   price: this.state.price,
   note:this.state.note,
   failuresstate:statesetting,
-  profileImg:this.state.imagepath
-}
+/*   profileImg:this.state.imagepath
+ */}
 
 const formData = new FormData()
 formData.append('profileImg', this.state.profileImg)
@@ -205,7 +210,6 @@ formData.append('failures_name',this.state.failures_name)
      
       <div className="card">
       
-  {/*()=>this.operation(data) /.card-header */}
   <div className="card-body">{this.state.showMe?
     <table id="students" className="table table-bordered table-striped">
       <thead>
@@ -230,9 +234,9 @@ formData.append('failures_name',this.state.failures_name)
     :null
   }
   </div>
-  {this.state.showMe2?   <section className='content'>
-        <div className="container">
-  <div className='row'>
+  {this.state.showMe2?    <div  className="container ">  
+      <section className='content '>
+  <div className='row justify-content-center'>
           <div className="col-md-6">
   {/* general form elements */}
   <div className="card card-primary">
@@ -284,9 +288,9 @@ formData.append('failures_name',this.state.failures_name)
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group ">
                                     <label for="exampleFormControlFile1">Ürün Resmi</label>
-                                    <img src={require(('../uploads/'+this.state.imagepath ))} style={{width: '500px',height:'500px'}}/><br/>
+                                    <img src={require(('../uploads/'+this.state.imagepath ))} style={{width: '100%',height:'600px'}}/><br/>
                                 </div>
 
       <div class="form-group">
@@ -301,12 +305,11 @@ formData.append('failures_name',this.state.failures_name)
       </div>
     </form>
   </div>
-
-</div>
-
-</div> 
   </div>
-  </section>  :null
+  </div>
+  </section>
+  </div>
+ :null
 }
 </div>
 

@@ -141,10 +141,12 @@ window.location.replace('/')
       <div>
       <Header/>
       <Menu/>
-      <br/>
-      <section className='content'>
-        <div className="container">
-  <div className='row'>
+      
+      <div className="content-wrapper"> 
+      <div className='card'><div className="card-body"></div>
+      <div  className="container ">  
+      <section className='content '>
+  <div className='row justify-content-center'>
           <div className="col-md-6">
   {/* general form elements */}
   <div className="card card-primary">
@@ -206,15 +208,13 @@ window.location.replace('/')
         <button type="submit" className="btn btn-primary">Kaydet</button>
       </div>
     </form>
+    </div>
+    </div>
   </div>
-
-</div>
-
-</div> 
+  </section>
+         </div>
+      </div>
   </div>
-  </section> 
-
-  
 </div>
 
 

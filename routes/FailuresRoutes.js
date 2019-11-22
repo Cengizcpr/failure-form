@@ -57,7 +57,7 @@ failures.post('/fregister',(req, res )=> {
   price: req.body.price,
   created: today,
   failuresstate:req.body.failuresstate,
-  profileImg:''
+ /*  profileImg:'' */
   }  
 a=req.body.failures_name;
 Failures.create(failureData)
@@ -105,8 +105,8 @@ failures.put('/flist',(req,res)=>
     note:req.body.note,
     customer_name:req.body.customer_name,
     failuresstate:req.body.failuresstate,
-    profileImg:req.body.imagepath
-  }
+/*     profileImg:req.body.imagepath
+ */  }
   Failures.update({failures_name:req.body.failures_name},customerData,function(err,objs){ })
   .then(objs=> {
      

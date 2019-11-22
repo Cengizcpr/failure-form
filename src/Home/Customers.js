@@ -55,21 +55,22 @@ window.location.replace('/')
       <div>
       <Header/>
       <Menu/>
-      <br></br>
-      <section className='content'>
-        <div className="container">
-  <div className='row'>
-          <div className="col-md-12 ">
+      <div className="content-wrapper"> 
+      <div className='card'><div className="card-body"></div>
+      <div  className="container ">  
+      <section className='content '>
+  <div className='row justify-content-center'>
+          <div className="col-md-6">
   {/* general form elements */}
   <div className="card card-primary">
     <div className="card-header">
-      <h3 className="card-title">Müşteri Kaydı</h3>
+      <h3 className="card-title">Müşteri Ekle</h3>
     </div>
     {/* /.card-header */}
     {/* form start */}
     <form noValidate onSubmit={this.onSubmit}> 
       <div className="card-body">
-        <div className="form-group">
+      <div className="form-group">
           <label htmlFor="exampleInputEmail1">Müşteri Adı</label>
           <input type="text"  className="form-control" placeholder="Müşteri Adı:"  name="first_name"  value={this.state.first_name}  onChange={this.onChange} required /><br/>
         </div>
@@ -94,7 +95,7 @@ window.location.replace('/')
       </div>
       {/* /.card-body */}
       <div className="card-footer">
-        <button type="submit" className="btn btn-primary">Kaydet</button>
+        <button type="submit" className="btn btn-primary" onClick={this.onSubmit}>Kaydet</button>
       </div>
     </form>
   </div>
@@ -102,8 +103,13 @@ window.location.replace('/')
 </div>
 
 </div> 
-  </div>
+ 
   </section>
+
+
+  </div>
+  </div>
+  </div>
 </div>
 
 

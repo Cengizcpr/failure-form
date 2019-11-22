@@ -140,19 +140,25 @@ yazdır(a){
 }
   onSubmit(e) {
  console.log(statesetting);
- const formData = new FormData()
- formData.append('profileImg', this.state.profileImg)
- formData.append('customer_name', this.state.customer_name)
- formData.append('failures_name', this.state.failures_name)
- formData.append('brand_name', this.state.brand_name)
- formData.append('price', this.state.price)
- formData.append('note', this.state.note)
- formData.append('failuresstate', this.state.failuresstate)
+
+ const newCustomer = {
+  customer_name: this.state.customer_name,
+  failures_name: this.state.failures_name,
+  brand_name: this.state.brand_name,
+  price: this.state.price,
+  note:this.state.note,
+  failuresstate:statesetting,
+
+}
   
-    
-    axios.put('failures/flist', formData)
+ 
+ 
+   axios.put('failures/flist', newCustomer)
     .then((response) => {
-      window.location.replace('/home')
+      /* axios.put('failures/flist',formData)
+      .then((response)=>{ */
+        window.location.replace('/home')
+     // })
 
   }).catch((error) => {
   });   

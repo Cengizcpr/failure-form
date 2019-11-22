@@ -29,7 +29,6 @@ let multer = require('multer');
      }
  });
 failures.put('/fregister', upload.single('profileImg','failures_name'), (req, res, next) => {
-console.log(req.body.failures_name)
 
   const customerData = {
     failures_name:req.body.failures_name,
@@ -94,25 +93,33 @@ failures.get('/flist', (req, res) => {
       res.send('error: ' + err)
     })
 })
-failures.put('/flist', upload.single('profileImg','customer_name','failures_name','brand_name','price','note','failuresstate'), (req, res, next) => {
-  
-    const customerData = {
-      profileImg: req.file.filename,
-      customer_name:req.body.customer_name,
-      brand_name:req.body.brand_name,
-      price:req.body.price,
-      failuresstate:req.body.failuresstate,
-      note:req.body.note
-    }
-    Failures.update({failures_name:req.body.failures_name},customerData,function(err,objs){ })
-    .then(objs=> {
-       
-      res.json(objs)
-    })
-    .catch(err=>{
-      res.json({ error: 'Customer already exists' })
-    })
+
+
+failures.put('/flist',(req,res)=>
+{console.log(req.body.failuresstate)
+  const customerData = {
+    profileImg: "801d662d-d740-4a85-9ff7-ee36f5c6ccaf-6.jpeg",
+    failures_name:req.body.failures_name,
+    brand_name:req.body.brand_name,
+    price:req.body.price,
+    note:req.body.note,
+    customer_name:req.body.customer_name,
+    failuresstate:req.body.failuresstate
+   
+  }
+  Failures.update({failures_name:req.body.failures_name},customerData,function(err,objs){ })
+  .then(objs=> {
+     
+    res.json(objs)
   })
+  .catch(err=>{
+    res.json({ error: 'Customer already exists' })
+  })
+
+})
+
+
+
 failures.post('/flist', (req, res) => {
   console.log(req.body._id)
 

@@ -138,27 +138,35 @@ yazdır(a){
      _id:a._id
   }) 
 }
+
+
+
   onSubmit(e) {
+    e.preventDefault()
  console.log(statesetting);
 
  const newCustomer = {
   customer_name: this.state.customer_name,
   failures_name: this.state.failures_name,
+  failures_species:this.state.failures_species,
   brand_name: this.state.brand_name,
   price: this.state.price,
   note:this.state.note,
-  failuresstate:statesetting,
-
+  failuresstate:statesetting
 }
-  
- 
+
+const formData = new FormData()
+formData.append('profileImg', this.state.profileImg)
+formData.append('failures_name',this.state.failures_name)
+
+
  
    axios.put('failures/flist', newCustomer)
     .then((response) => {
-      /* axios.put('failures/flist',formData)
-      .then((response)=>{ */
+       axios.put('failures/fliste',formData)
+      .then((response)=>{ 
         window.location.replace('/home')
-     // })
+      })
 
   }).catch((error) => {
   });   

@@ -96,10 +96,10 @@ failures.get('/flist', (req, res) => {
 
 
 failures.put('/flist',(req,res)=>
-{console.log(req.body.failuresstate)
+{
   const customerData = {
-    profileImg: "801d662d-d740-4a85-9ff7-ee36f5c6ccaf-6.jpeg",
     failures_name:req.body.failures_name,
+    failures_species:req.body.failures_species,
     brand_name:req.body.brand_name,
     price:req.body.price,
     note:req.body.note,
@@ -118,7 +118,23 @@ failures.put('/flist',(req,res)=>
 
 })
 
+failures.put('/fliste', upload.single('profileImg','failures_name'), (req, res, next) => {
 
+  const customerData = {
+    failures_name:req.body.failures_name,
+    profileImg: req.file.filename
+   
+  }
+  Failures.update({failures_name:req.body.failures_name},customerData,function(err,objs){ })
+  .then(objs=> {
+     
+    res.json(objs)
+  })
+  .catch(err=>{
+    res.json({ error: 'Customer already exists' })
+  })
+
+})
 
 failures.post('/flist', (req, res) => {
   console.log(req.body._id)

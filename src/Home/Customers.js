@@ -59,7 +59,7 @@ window.location.replace('/')
       <section className='content'>
         <div className="container">
   <div className='row'>
-          <div className="col-md-6">
+          <div className="col-md-12 ">
   {/* general form elements */}
   <div className="card card-primary">
     <div className="card-header">
@@ -79,12 +79,12 @@ window.location.replace('/')
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Müşteri Telefon No</label>
-          <input type="text"  className="form-control" placeholder="Müşteri Telefon No:"  name="phone_no"  value={this.state.phone_no}  onChange={this.onChange} required /><br/>
+          <input type="tel"  className="form-control" placeholder="Müşteri Telefon No:"  name="phone_no"  value={this.state.phone_no}  onChange={this.onChange} max={9999} required /><br/>
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputFile">Müşteri Adresi</label>
           <div className="input-group">
-          <input type="text"  className="form-control" placeholder="Müşteri Adresi:"  name="adress"  value={this.state.adress}  onChange={this.onChange} required /><br/>
+          <input type="text" maxLength={11} className="form-control" placeholder="Müşteri Adresi:"  name="adress"  value={this.state.adress}  onChange={this.onChange} required /><br/>
 
             
           </div>

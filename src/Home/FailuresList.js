@@ -269,7 +269,7 @@ formData.append('failures_name',this.state.failures_name)
         <div className="form-group">
           <label htmlFor="exampleInputFile">Fiyat</label>
           <div className="input-group">
-          <input type="text"  className="form-control"  name="price"  value={this.state.price} onChange={this.onChange}  required /><br/>
+          <input type="number"  className="form-control"  name="price"  value={this.state.price} onChange={this.onChange}  required /><br/>
 
             
           </div>

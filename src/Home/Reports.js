@@ -59,13 +59,20 @@ constructor(){
   try{
     jwt_decode(token)
     const decoded = jwt_decode(token)
- 
+    
     failureslist().then(res=>{
-    this.setState({
-      ad:res[0].customer_name,
-      locations:res,
-      uemail:decoded.email
-    })
+      console.log(typeof res[0])
+      if(res[0] ===undefined){
+        this.props.history.push('/homes')
+      }
+      else{
+        this.setState({
+          ad:res[0].customer_name,
+          locations:res,
+          uemail:decoded.email
+        })
+      }
+    
   })
   
   }catch(error){
@@ -123,6 +130,7 @@ window.location.replace('/')
 
     let date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+today.getFullYear();
     const cities=this.state.locations.map(data => (
+      
       <tr key={data._id} >
       
       <td>{data.customer_name}</td>

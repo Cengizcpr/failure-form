@@ -183,7 +183,7 @@ deletecustomer(data)  {
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Müşteri Telefon No</label>
-          <input type="text"  className="form-control" placeholder="Müşteri Telefon No:"  name="phone_no"  value={this.state.phone_no} onChange={this.onChange}  required  /><br/>
+          <input type="number"  className="form-control" placeholder="Müşteri Telefon No:"  name="phone_no"  value={this.state.phone_no} onChange={this.onChange}  required  /><br/>
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputFile">Müşteri Adresi</label>

@@ -15,7 +15,7 @@ export default class Header extends Component {
     {/* Left navbar links */}
     <ul className="navbar-nav">
       <li className="nav-item">
-        
+      <Link class="nav-link" data-widget="pushmenu" to='#'><i class="fas fa-bars"></i></Link>
       </li>
       <li className="nav-item d-none d-sm-inline-block">
         <Link to="/home" className="nav-link">Anasayfa</Link>

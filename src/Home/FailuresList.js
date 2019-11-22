@@ -6,6 +6,7 @@ import jwt_decode from 'jwt-decode'
 import {failureslist} from '../component/FailuresFunctions'
 import {failuresupdate} from '../component/FailuresFunctions'
 import {failuresdeletes} from '../component/FailuresFunctions'
+import { string } from 'prop-types'
 
 let statesetting=''
 const a=''
@@ -80,6 +81,7 @@ const a=''
   }
   operation(a){
  console.log(a.profileImg)
+ 
     this.setState({
       showMe2:true,
       showMe:false,
@@ -91,10 +93,19 @@ const a=''
       note:a.note,
       failuresstate:a.failuresstate,
        _id:a._id,
-      imagepath:a.profileImg
+       imagepath:a.profileImg
+      
     }) 
-   // console.log(this.state.imagepath)
-   a=this.state.imagepath
+   
+
+console.log(a.profileImg)
+    if(a.profileImg=='')
+    {
+      this.setState({
+        imagepath:"f0f2e0d5-f180-415a-a523-026cbddf9b39-pagenotfound1.png"
+      })
+    }
+    
   }  
   componentDidMount(e) {
    
@@ -102,6 +113,8 @@ const a=''
     const token = localStorage.usertoken
   try{
     jwt_decode(token)
+    console.log(this.state.imagepath)
+    
     failureslist().then(res =>{
       this.setState({
         locations:res
@@ -122,28 +135,13 @@ window.location.replace('/')
    
 
 }
-yazdır(a){
-  this.setState({
-    showMe3:true,
-    showMe4:true,
-    showMe:false,
-    showMe2:false,
-    customer_name:a.customer_name,
-    failures_name:a.failures_name,
-    failures_species:a.failures_species,
-    brand_name:a.brand_name,
-    price:a.price,
-    note:a.note,
-    failuresstate:a.failuresstate,
-     _id:a._id
-  }) 
-}
+
 
 
 
   onSubmit(e) {
     e.preventDefault()
- console.log(statesetting);
+
 
  const newCustomer = {
   customer_name: this.state.customer_name,
@@ -152,7 +150,8 @@ yazdır(a){
   brand_name: this.state.brand_name,
   price: this.state.price,
   note:this.state.note,
-  failuresstate:statesetting
+  failuresstate:statesetting,
+  profileImg:this.state.imagepath
 }
 
 const formData = new FormData()
@@ -167,22 +166,14 @@ formData.append('failures_name',this.state.failures_name)
       .then((response)=>{ 
         window.location.replace('/home')
       })
+      .catch((error) => {
+        window.location.replace('/home')
 
+      });   
   }).catch((error) => {
   });   
   }
   
-  createpdf(data){
-
-    this.setState({
-      customername_pdf:data.customer_name,
-      failuresname_pdf:data.failures_name,
-      failuresspecies_pdf:data.failures_species,
-      brandname_pdf:data.brand_name,
-      price_pdf:data.price,
-      note_pdf:data.note_pdf
-    })
-  }
 
   
   render() { 
@@ -295,12 +286,12 @@ formData.append('failures_name',this.state.failures_name)
 
         <div class="form-group">
                                     <label for="exampleFormControlFile1">Ürün Resmi</label>
-                                    <img src={require(('../uploads/'+this.state.imagepath))} style={{width: '500px',height:'500px'}}/><br/>
+                                    <img src={require(('../uploads/'+this.state.imagepath ))} style={{width: '500px',height:'500px'}}/><br/>
                                 </div>
 
       <div class="form-group">
          <label for="exampleFormControlFile1">Resmi Yükle</label>
-          <input type="file"  class="form-control-file" onChange={this.onFileChange} />
+          <input type="file"  class="form-control-file" onChange={this.onFileChange} capture='camera' />
     </div>
      
       </div>

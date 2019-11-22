@@ -97,6 +97,8 @@ onSubmit(e){
   .then((response) => {
     
     window.location.replace('/home')
+  }).catch((error)=>{
+    window.location.replace('/home')
   }) 
 }).catch((error) => {
 });   

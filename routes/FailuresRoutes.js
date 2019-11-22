@@ -32,7 +32,7 @@ failures.put('/fregister', upload.single('profileImg','failures_name'), (req, re
 
   const customerData = {
     failures_name:req.body.failures_name,
-    profileImg: req.file.filename
+    profileImg: req.file.filename?req.file.filename:"f0f2e0d5-f180-415a-a523-026cbddf9b39-pagenotfound1.png"
    
   }
   Failures.update({failures_name:req.body.failures_name},customerData,function(err,objs){ })
@@ -104,8 +104,8 @@ failures.put('/flist',(req,res)=>
     price:req.body.price,
     note:req.body.note,
     customer_name:req.body.customer_name,
-    failuresstate:req.body.failuresstate
-   
+    failuresstate:req.body.failuresstate,
+    profileImg:req.body.imagepath
   }
   Failures.update({failures_name:req.body.failures_name},customerData,function(err,objs){ })
   .then(objs=> {

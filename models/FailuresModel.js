@@ -17,6 +17,15 @@ const FailuresSchema = new Schema({
     type: String,
    
   },
+  failures_color:{
+    type:String
+  },
+  failures_pay:{
+    type:String
+  },
+  failures_date:{ 
+    type:String
+  }, 
    price: {
     type: String,
    
@@ -26,8 +35,8 @@ const FailuresSchema = new Schema({
    
   },
   date: {
-    type: Date,
-    default: Date.now
+    type: String,
+  
   },
   failuresstate: {
   

@@ -4,9 +4,8 @@ import Menu from "./Menu"
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import {failureslist} from '../component/FailuresFunctions'
-import {failuresupdate} from '../component/FailuresFunctions'
+import {customerlist} from '../component/CustomerFunctions'
 import {failuresdeletes} from '../component/FailuresFunctions'
-import { string } from 'prop-types'
 
 let statesetting=''
 const a=''
@@ -50,7 +49,8 @@ const a=''
       _id:'',
       durum:'Beklemede',
      durum2:'Yapıldı',
-     imagepath:''
+     imagepath:'',
+     cphoneno:''
       
   
       };
@@ -80,8 +80,10 @@ const a=''
     this.setState({ [e.target.name]: e.target.value })
   }
   operation(a){
- console.log(a.profileImg)
  
+
+ 
+
     this.setState({
       showMe2:true,
       showMe:false,
@@ -118,8 +120,18 @@ console.log(a.profileImg)
     const token = localStorage.usertoken
   try{
     jwt_decode(token)
-    console.log(this.state.imagepath)
-    
+    customerlist().then(res=>{
+
+      for(var i=0;i<res.length;i++)
+      {console.log(res[i].first_name+res[i].last_name)
+        if(res[i].first_name+res[i].last_name=='CengizhanÇopur')
+        {
+          this.setState({
+            cphoneno:res[i].cphoneno
+          })
+        }console.log(this.state.cphoneno)
+      }
+    })
     failureslist().then(res =>{
       this.setState({
         locations:res
@@ -188,14 +200,15 @@ formData.append('failures_name',this.state.failures_name)
       const cities=this.state.locations.map(data => (
         
       <tr key={data._id}>
-      <td  name="_id"  value={this.state._id}>{data._id}</td>
       <td value={this.state.customername_pdf} >{data.customer_name}</td>
       <td>{data.failures_name}</td> 
-      <td>{data.failures_species} </td> 
+      <td>{data.failures_color} </td> 
       <td>{data.brand_name}</td> 
       <td>{data.price}</td> 
       <td>{data.note}</td> 
       <td>{data.date}</td> 
+      <td>{data.failures_date}</td> 
+      <td>{data.failures_pay}</td> 
       <td value={data.profileImg}>{data.failuresstate}</td> 
       <td> <input type="button" className="btn btn-primary btn-flat " value={'Güncelle'} onClick={()=>this.operation(data)}></input>&nbsp;&nbsp;&nbsp;<input type="button" className="btn btn-danger  btn-flat " onClick={()=>this.deletefailures(data)} value={'Sil'} ></input></td> 
       </tr>
@@ -206,23 +219,23 @@ formData.append('failures_name',this.state.failures_name)
       <div>
       <Header/>
       <Menu/>
-      <div className="content-wrapper"> 
+      <div className="content-wrapper" > 
      
       <div className="card">
       
   <div className="card-body">{this.state.showMe?
-    <table id="students" className="table table-bordered table-striped">
+    <table id="students" className="table table-bordered table-striped" style={{overflow:"auto"}}>
       <thead>
         <tr >
-        <th><h6>İd </h6></th>
         <th ><h6>Müşteri Adı </h6></th>
       <th ><h6>Arıza Adı</h6></th>
-      <th><h6>Arıza Cinsi</h6></th>
+      <th><h6>Ürün Renk</h6></th>
       <th><h6>Marka Adı</h6></th>
       <th><h6>Fiyat</h6></th>
       <th><h6>Not</h6></th>
-      <th><h6>Tarih</h6></th>
-      
+      <th><h6>Arıza Tarih</h6></th>
+      <th><h6>Teslim Tarih</h6></th>
+      <th><h6>Ödeme Durumu</h6></th>
       <th><h6>Durum</h6></th>
       <th><h6>Ayarlar</h6> </th>
         </tr>

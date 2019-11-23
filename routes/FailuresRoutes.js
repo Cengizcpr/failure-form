@@ -47,15 +47,20 @@ failures.put('/fregister', upload.single('profileImg','failures_name'), (req, re
 })
 failures.post('/fregister',(req, res )=> {
   
-  const today = new Date() 
+  const date = new Date() 
+  today=date.getDate() + "-"+ parseInt(date.getMonth()+1) +"-"+date.getFullYear()
+  console.log(today)
  const failureData = {
   customer_name: req.body.customer_name,
   failures_name: req.body.failures_name,
   failures_species: req.body.failures_species,
   brand_name: req.body.brand_name,
   note: req.body.note,
+  failures_date:req.body.failures_date,
   price: req.body.price,
-  created: today,
+  date: today,
+  failures_color:req.body.failures_color,
+  failures_pay:req.body.failures_pay,
   failuresstate:req.body.failuresstate,
  /*  profileImg:'' */
   }  
@@ -105,6 +110,7 @@ failures.put('/flist',(req,res)=>
     note:req.body.note,
     customer_name:req.body.customer_name,
     failuresstate:req.body.failuresstate,
+    failures_date:req.body.failures_date
 /*     profileImg:req.body.imagepath
  */  }
   Failures.update({failures_name:req.body.failures_name},customerData,function(err,objs){ })

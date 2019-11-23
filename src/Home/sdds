@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import Header from "./Header"
 import Menu from "./Menu"
 import jwt_decode from 'jwt-decode'
@@ -7,11 +7,11 @@ import axios from 'axios'
 import DatePicker from "react-datepicker";
  
 import "react-datepicker/dist/react-datepicker.css";
-let b="",c='',d='',f='',g='',date2=''
+let b="",c='',d='',f='',g=''
+let date2=''
  class FailuresAdd extends Component {
   constructor(props) {
     super(props) 
-    
     
     this.state = {
       locations:[],
@@ -34,8 +34,8 @@ let b="",c='',d='',f='',g='',date2=''
       failuresstate:'',
      durum:'Beklemede',
      durum2:'Yapıldı',
-     startDate:new Date(),
-     failures_date:''
+    /*  startDate:new Date(),
+     failures_date:'' */
       };    
       this.onChange = this.onChange.bind(this)
       this.onSubmit = this.onSubmit.bind(this)
@@ -44,7 +44,7 @@ let b="",c='',d='',f='',g='',date2=''
 
     
   } 
-  handleChangeCalendar = date => {
+ /*  handleChangeCalendar = date => {
     this.setState({
       startDate: date,
       failures_date:date.getDate() + "-"+ parseInt(date.getMonth()+1) +"-"+date.getFullYear()
@@ -52,7 +52,9 @@ let b="",c='',d='',f='',g='',date2=''
     date2=date.getDate() + "-"+ parseInt(date.getMonth()+1) +"-"+date.getFullYear();
 
     console.log(date)
-  };  onFileChange(e) {
+  }; */
+  
+    onFileChange(e) {
     this.setState({ profileImg: e.target.files[0] })
 }
   onChange(e) {
@@ -112,7 +114,9 @@ handleChange5 = (e) => {
 }
 onSubmit(e){
   e.preventDefault();
-  console.log(this.state.date)
+
+    
+  console.log(this.state.d)
   const formData = new FormData()
   formData.append('profileImg', this.state.profileImg)
 
@@ -127,8 +131,8 @@ onSubmit(e){
     formData,
    failures_color:f,
     failures_pay:g,
-    failures_date:date2
-    
+/*     failures_date:date2
+ */    
      } 
      formData.append('failures_name',this.state.failures_name)
         axios.post('failures/fregister', newFailures)
@@ -172,7 +176,7 @@ window.location.replace('/')
    
     const customers=this.state.locations.map(data => (
       
-      <option key={data._id}>{data.first_name} {data.last_name} {data.phone_no}</option>
+      <option key={data._id}>{data.first_name} {data.last_name}</option>
      
     ));   
     
@@ -195,7 +199,7 @@ window.location.replace('/')
     </div>
     {/* /.card-header */}
     {/* form start */}
-    <form noValidate onSubmit={this.onSubmit}> 
+    <form noValidate > 
       <div className="card-body">
       <div className="form-group">
       <label htmlFor="exampleInputPassword1">Müşteri Seçiniz</label>
@@ -257,11 +261,12 @@ window.location.replace('/')
       </div>
       <div className="form-group">
           <label htmlFor="exampleInputPassword1">Teslim Tarihi</label>
-          <DatePicker
+   {/*        <DatePicker
         selected={this.state.startDate}
         onChange={this.handleChangeCalendar}
   
-      /> </div>
+      /> */}
+      </div>
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Marka Adı </label>
           <input type="text"  className="form-control" placeholder="Marka Adı:"  name="brand_name"  value={this.state.brand_name}  onChange={this.onChange}    required />

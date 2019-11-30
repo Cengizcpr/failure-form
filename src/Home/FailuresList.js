@@ -4,7 +4,6 @@ import Menu from "./Menu"
 import axios from 'axios'
 import jwt_decode from 'jwt-decode' 
 import {failureslist} from '../component/FailuresFunctions'
-import {customerlist} from '../component/CustomerFunctions'
 import {failuresdeletes} from '../component/FailuresFunctions'
 import DatePicker from "react-datepicker";
  
@@ -27,26 +26,19 @@ const a=''
       showMe4:false,
       customer_name: '',
       failures_name: '',
-      customername_pdf:'',
-      failuresname_pdf:'',
       profileImg: '',
-      failuresspecies_pdf:'',
-      brandname_pdf:'',
-      price_pdf:'',
-      note_pdf:'',
       brand_name:'',
       price:'',
       note:'',
-      d:'',
+      failures_datedata:'',
       startDate:'',
       failuresstate:'',
       failures_color:'',
       failures_pay:'',
       _id:'',
       durum:'Beklemede',
-     durum2:'Yapıldı',
-     imagepath:'',
-     cphoneno:'',
+      durum2:'Yapıldı',
+      imagepath:'',
       
   
       };
@@ -61,8 +53,7 @@ const a=''
     this.setState({ profileImg: e.target.files[0] })
 }
   deletefailures(data)  {
-    const a=data._id
-    failuresdeletes({_id:a}).then(res=>
+    failuresdeletes({_id:data._id}).then(res=>
       {     
         this.props.history.push(`/home`)
   
@@ -80,7 +71,7 @@ const a=''
       startDate: date,
       failures_date: parseInt(date.getMonth()+1)+"/"+date.getDate() +"/"+date.getFullYear()
     });
-    date2= parseInt(date.getMonth()+1)+"/"+date.getDate() +"/"+date.getFullYear();
+    
 
   
   }; 
@@ -98,6 +89,8 @@ const a=''
       price:a.price,
       note:a.note,
       startDate:new Date(),
+      failures_datedata:a.failures_date,
+      failures_date:a.failures_date,
       failuresstate:a.failuresstate,
       failures_color:a.failures_color,
       failures_pay:a.failures_pay,
@@ -105,7 +98,7 @@ const a=''
        imagepath:a.profileImg
       
     }) 
-   
+   console.log(this.state._id+'sda')
 
     if(a.profileImg==null)
     {
@@ -126,18 +119,6 @@ const a=''
     const token = localStorage.usertoken
   try{
     jwt_decode(token)
-    customerlist().then(res=>{
-
-      for(var i=0;i<res.length;i++)
-      {console.log(res[i].first_name+res[i].last_name)
-        if(res[i].first_name+res[i].last_name=='CengizhanÇopur')
-        {
-          this.setState({
-            cphoneno:res[i].cphoneno
-          })
-        }console.log(this.state.cphoneno)
-      }
-    })
     failureslist().then(res =>{
       this.setState({
         locations:res
@@ -149,54 +130,37 @@ window.location.replace('/')
   }
   
   }
-  handleChange = (e) => {
+  handleChangeState = (e) => {
     let index = e.nativeEvent.target.selectedIndex;
-    const a=e.nativeEvent.target[index].text;
-  
     this.setState({
-      failuresstate:a
+    failuresstate:e.nativeEvent.target[index].text
     })
-  
-
-}
+  }
 
 
-handleChange3 = (e) => {
-  let index = e.nativeEvent.target.selectedIndex;
-  const faname=e.nativeEvent.target[index].text;
+  handleChangeFailuresName = (e) => {
+    let index = e.nativeEvent.target.selectedIndex;
+    this.setState({
+    failures_name:e.nativeEvent.target[index].text
+    })
+  }
 
-this.setState({
-  failures_name:faname
-})
- 
- 
 
-}
-handleChange4 = (e) => {
-  let index = e.nativeEvent.target.selectedIndex;
-  const fcolor=e.nativeEvent.target[index].text;
+  handleChangeColor = (e) => {
+    let index = e.nativeEvent.target.selectedIndex;
+    this.setState({
+      failures_color:e.nativeEvent.target[index].text
+    })
+  }
 
-this.setState({
-  failures_color:fcolor
-})
- 
- 
-
-}
-handleChange5 = (e) => {
-  let index = e.nativeEvent.target.selectedIndex;
-  const fpay=e.nativeEvent.target[index].text;
-
-this.setState({
-  failures_pay:fpay
-})
- 
- 
-
-}
+  handleChangePay = (e) => {
+    let index = e.nativeEvent.target.selectedIndex;
+    this.setState({
+    failures_pay:e.nativeEvent.target[index].text
+    })
+  }
   onSubmit(e) {
     e.preventDefault()
-
 
  const newCustomer = {
   customer_name: this.state.customer_name,
@@ -207,9 +171,8 @@ this.setState({
   failuresstate:this.state.failuresstate,
   failures_color:this.state.failures_color,
   failures_pay:this.state.failures_pay,
-  failures_date:date2
-/*   profileImg:this.state.imagepath
- */}
+  failures_date:this.state.failures_date
+  }
 
 const formData = new FormData()
 formData.append('profileImg', this.state.profileImg)
@@ -240,7 +203,7 @@ formData.append('customer_name',this.state.customer_name)
       const cities=this.state.locations.map(data => (
         
       <tr key={data._id}>
-      <td value={this.state.customername_pdf} >{data.customer_name}</td>
+      <td>{data.customer_name}</td>
       <td>{data.failures_name}</td> 
       <td>{data.failures_color} </td> 
       <td>{data.brand_name}</td> 
@@ -306,14 +269,14 @@ formData.append('customer_name',this.state.customer_name)
 <input type="text"  className="form-control"  name="customer_name"  value={this.state.customer_name} onChange={this.onChange}  required  />
 </div>   
 
-   <div className="form-group">  <label htmlFor="exampleInputEmail1">Durum Seçiniz</label> <select className="form-control"  onChange={this.handleChange} >
+   <div className="form-group">  <label htmlFor="exampleInputEmail1">Durum Seçiniz</label> <select className="form-control"  onChange={this.handleChangeState} >
       <option >{this.state.failuresstate} </option>
       <option>{this.state.durum} </option>
       <option>{this.state.durum2} </option>
     </select></div>
     <div className="form-group">
         <label htmlFor="exampleInputPassword1">Arıza Adı</label>
-    <select className="form-control"  onChange={this.handleChange3} >
+    <select className="form-control"  onChange={this.handleChangeFailuresName} >
     <option>{this.state.failures_name}</option>
       <option>Beslenme Çantası </option>
       <option>Cüzdan </option>
@@ -329,7 +292,7 @@ formData.append('customer_name',this.state.customer_name)
         </div>
         <div className="form-group">
         <label htmlFor="exampleInputPassword1">Ürün Renk</label>
-    <select className="form-control"  onChange={this.handleChange4} >
+    <select className="form-control"  onChange={this.handleChangeColor} >
     <option>{this.state.failures_color} </option>
       <option>Sarı </option>
       <option>Beyaz</option>
@@ -348,7 +311,7 @@ formData.append('customer_name',this.state.customer_name)
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Arıza Ödeme</label>
-          <select className="form-control"  onChange={this.handleChange5} >
+          <select className="form-control"  onChange={this.handleChangePay} >
           <option>{this.state.failures_pay} </option>
       <option>Ödeme Yapılmadı</option>
       <option>Ödeme Alındı </option>
@@ -357,8 +320,8 @@ formData.append('customer_name',this.state.customer_name)
     </select>     
       </div>
         <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Teslim Tarihi</label>
-          <DatePicker
+        <label htmlFor="exampleInputPassword1">Teslim Tarihi:  {this.state.failures_datedata}</label> 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <DatePicker
         selected={this.state.startDate}
         onChange={this.handleChangeCalendar}
   

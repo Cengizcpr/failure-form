@@ -7,8 +7,7 @@ import Menu from "./Menu"
 import {getProfile} from '../component/UserFunctions'
 import {customerlist} from '../component/CustomerFunctions'
 import Page from './Page';
-/* import SinglePage from './SinglePage'
- */import PrintButton from "./PrintButton";
+ import PrintButton from "./PrintButton";
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
@@ -36,7 +35,7 @@ constructor(){
     cname:'',
     fname:'',
     cadress:'',
-    fspecies:'',
+    fdate:'',
     bname:'',
     fprice:'',
     fnote:'',
@@ -115,7 +114,7 @@ window.location.replace('/')
     this.setState({
       cname:a.customer_name,
       fname:a.failures_name,
-      fspecies:a.failures_species,
+      fdate:a.failures_date,
       bname:a.brand_name,
       fprice:a.price,
       cphone:a.phone_no,
@@ -135,10 +134,14 @@ window.location.replace('/')
       
       <td>{data.customer_name}</td>
       <td>{data.failures_name}</td> 
-      <td>{data.failures_species} </td> 
+      <td>{data.failures_color} </td> 
       <td>{data.brand_name}</td> 
       <td>{data.price}</td> 
-      <td>{data.note}</td>
+      <td>{data.note}</td> 
+      <td>{data.date}</td> 
+      <td>{data.failures_date}</td> 
+      <td>{data.failures_pay}</td> 
+      <td value={data.profileImg}>{data.failuresstate}</td> 
       <td> <input type="button" className="btn btn-warning  btn-flat " onClick={()=>this.prints(data)} value={'Rapor Oluştur'} ></input></td>
       
       </tr>
@@ -160,11 +163,16 @@ window.location.replace('/')
         
         <th ><h6>Müşteri Adı </h6></th>
       <th ><h6>Arıza Adı</h6></th>
-      <th><h6>Arıza Cinsi</h6></th>
+      <th><h6>Ürün Renk</h6></th>
       <th><h6>Marka Adı</h6></th>
       <th><h6>Fiyat</h6></th>
       <th><h6>Not</h6></th>
-      <th><h6>Ayarlar</h6></th>
+      <th><h6>Arıza Tarih</h6></th>
+      <th><h6>Teslim Tarih</h6></th>
+      <th><h6>Ödeme Durumu</h6></th>
+      <th><h6>Durum</h6></th>
+      <th><h6>Ayarlar</h6> </th>
+
         </tr>
       </thead>
       <tbody>
@@ -246,8 +254,8 @@ window.location.replace('/')
      
         </tr>
         <tr >
-        <th>Yapılan İşlemler: </th>
-        <th >{this.state.fspecies}</th>
+        <th>Teslim Tarihi: </th>
+        <th >{this.state.fdate}</th>
      
         </tr>
        

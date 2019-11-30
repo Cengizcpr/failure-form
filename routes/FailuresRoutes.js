@@ -31,17 +31,14 @@ let multer = require('multer');
 failures.put('/fregister', upload.single('profileImg','failures_name'), (req, res, next) => {
   if(req.file.filename==undefined){
      customerData = {
-/*       failures_name:req.body.failures_name,
- */      profileImg:"f0f2e0d5-f180-415a-a523-026cbddf9b39-pagenotfound1.png"
+      profileImg:"f0f2e0d5-f180-415a-a523-026cbddf9b39-pagenotfound1.png"
      
     }
-    console.log('asd')
   }
   else
    {
      customerData = {
-/*   failures_name:req.body.failures_name,
- */      profileImg:req.file.filename
+      profileImg:req.file.filename
      
     }
    }
@@ -122,8 +119,7 @@ failures.put('/flist',(req,res)=>
     failures_pay:req.body.failures_pay,
     failures_color:req.body.failures_color,
 
-/*     profileImg:req.body.imagepath
- */  }
+  }
   Failures.update({customer_name:req.body.customer_name},customerData,function(err,objs){ })
   .then(objs=> {
      

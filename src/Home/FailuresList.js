@@ -2,26 +2,20 @@ import React, { Component } from 'react'
 import Header from "./Header"
 import Menu from "./Menu"
 import axios from 'axios'
-import jwt_decode from 'jwt-decode'
+import jwt_decode from 'jwt-decode' 
 import {failureslist} from '../component/FailuresFunctions'
 import {customerlist} from '../component/CustomerFunctions'
 import {failuresdeletes} from '../component/FailuresFunctions'
-
-let statesetting=''
+import DatePicker from "react-datepicker";
+ 
+import "react-datepicker/dist/react-datepicker.css";
+let date2=''
 const a=''
  class FailuresList extends Component {
    
   constructor() {
     super() 
-    failureslist().then(res=>{
-      
-      for(let i=0;i<res.length;i++)
-      {
-      
-      } 
-     
-     
-    })
+   
    
     
   
@@ -33,7 +27,6 @@ const a=''
       showMe4:false,
       customer_name: '',
       failures_name: '',
-      failures_species: '',
       customername_pdf:'',
       failuresname_pdf:'',
       profileImg: '',
@@ -44,13 +37,16 @@ const a=''
       brand_name:'',
       price:'',
       note:'',
+      d:'',
+      startDate:'',
       failuresstate:'',
-      colors:'',
+      failures_color:'',
+      failures_pay:'',
       _id:'',
       durum:'Beklemede',
      durum2:'Yapıldı',
      imagepath:'',
-     cphoneno:''
+     cphoneno:'',
       
   
       };
@@ -79,6 +75,15 @@ const a=''
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value })
   }
+  handleChangeCalendar = date => {
+    this.setState({
+      startDate: date,
+      failures_date: parseInt(date.getMonth()+1)+"/"+date.getDate() +"/"+date.getFullYear()
+    });
+    date2= parseInt(date.getMonth()+1)+"/"+date.getDate() +"/"+date.getFullYear();
+
+  
+  }; 
   operation(a){
  
 
@@ -89,18 +94,19 @@ const a=''
       showMe:false,
       customer_name:a.customer_name,
       failures_name:a.failures_name,
-      failures_species:a.failures_species,
       brand_name:a.brand_name,
       price:a.price,
       note:a.note,
+      startDate:new Date(),
       failuresstate:a.failuresstate,
+      failures_color:a.failures_color,
+      failures_pay:a.failures_pay,
        _id:a._id,
        imagepath:a.profileImg
       
     }) 
    
 
-console.log(a.profileImg)
     if(a.profileImg==null)
     {
       this.setState({
@@ -147,15 +153,47 @@ window.location.replace('/')
     let index = e.nativeEvent.target.selectedIndex;
     const a=e.nativeEvent.target[index].text;
   
-    statesetting=a;
-   console.log(a)
-   
+    this.setState({
+      failuresstate:a
+    })
+  
 
 }
 
 
+handleChange3 = (e) => {
+  let index = e.nativeEvent.target.selectedIndex;
+  const faname=e.nativeEvent.target[index].text;
 
+this.setState({
+  failures_name:faname
+})
+ 
+ 
 
+}
+handleChange4 = (e) => {
+  let index = e.nativeEvent.target.selectedIndex;
+  const fcolor=e.nativeEvent.target[index].text;
+
+this.setState({
+  failures_color:fcolor
+})
+ 
+ 
+
+}
+handleChange5 = (e) => {
+  let index = e.nativeEvent.target.selectedIndex;
+  const fpay=e.nativeEvent.target[index].text;
+
+this.setState({
+  failures_pay:fpay
+})
+ 
+ 
+
+}
   onSubmit(e) {
     e.preventDefault()
 
@@ -163,17 +201,19 @@ window.location.replace('/')
  const newCustomer = {
   customer_name: this.state.customer_name,
   failures_name: this.state.failures_name,
-  failures_species:this.state.failures_species,
   brand_name: this.state.brand_name,
   price: this.state.price,
   note:this.state.note,
-  failuresstate:statesetting,
+  failuresstate:this.state.failuresstate,
+  failures_color:this.state.failures_color,
+  failures_pay:this.state.failures_pay,
+  failures_date:date2
 /*   profileImg:this.state.imagepath
  */}
 
 const formData = new FormData()
 formData.append('profileImg', this.state.profileImg)
-formData.append('failures_name',this.state.failures_name)
+formData.append('customer_name',this.state.customer_name)
 
 
  
@@ -267,21 +307,65 @@ formData.append('failures_name',this.state.failures_name)
 </div>   
 
    <div className="form-group">  <label htmlFor="exampleInputEmail1">Durum Seçiniz</label> <select className="form-control"  onChange={this.handleChange} >
-      <option>Durum Seçiniz... </option>
+      <option >{this.state.failuresstate} </option>
       <option>{this.state.durum} </option>
       <option>{this.state.durum2} </option>
     </select></div>
-        <div className="form-group">
-
-          <label htmlFor="exampleInputEmail1">Arıza Adı</label>
-          <input type="text"  className="form-control"   name="failures_name"  value={this.state.failures_name} onChange={this.onChange}  required />    <br/>    </div>
-        <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Arıza Cinsi</label>
-          <input type="text"  className="form-control"  name="failures_species"  value={this.state.failures_species} onChange={this.onChange}   required /><br/>
+    <div className="form-group">
+        <label htmlFor="exampleInputPassword1">Arıza Adı</label>
+    <select className="form-control"  onChange={this.handleChange3} >
+    <option>{this.state.failures_name}</option>
+      <option>Beslenme Çantası </option>
+      <option>Cüzdan </option>
+      <option>Çanta</option>
+      <option>El Çantası </option>
+      <option>Kalemlik </option>
+      <option>Kemer </option>
+      <option>Laptop Çantası </option>
+      <option>Okul Çantası </option>
+      <option>Sırt Çantası </option>
+      <option>Valiz</option>
+    </select>
         </div>
         <div className="form-group">
+        <label htmlFor="exampleInputPassword1">Ürün Renk</label>
+    <select className="form-control"  onChange={this.handleChange4} >
+    <option>{this.state.failures_color} </option>
+      <option>Sarı </option>
+      <option>Beyaz</option>
+      <option>Bordo</option>
+      <option>Gri </option>
+      <option>Altın </option>
+      <option>Gümüş </option>
+      <option>Kahverengi </option>
+      <option>Kırmızı </option>
+      <option>Lacivert </option>
+      <option>Mavi</option>
+      <option>Mor</option>
+      <option>Pembe</option>
+      <option>Siyah</option>
+    </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Arıza Ödeme</label>
+          <select className="form-control"  onChange={this.handleChange5} >
+          <option>{this.state.failures_pay} </option>
+      <option>Ödeme Yapılmadı</option>
+      <option>Ödeme Alındı </option>
+
+     
+    </select>     
+      </div>
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Teslim Tarihi</label>
+          <DatePicker
+        selected={this.state.startDate}
+        onChange={this.handleChangeCalendar}
+  
+      /> </div>
+        <div className="form-group">
           <label htmlFor="exampleInputPassword1">Marka Adı </label>
-          <input type="text"  className="form-control"   name="brand_name"  value={this.state.brand_name} onChange={this.onChange}  required /><br/>
+          <input type="text"  className="form-control"   name="brand_name"  value={this.state.brand_name} onChange={this.onChange}  required />
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputFile">Fiyat</label>

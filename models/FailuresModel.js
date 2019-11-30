@@ -9,10 +9,7 @@ const FailuresSchema = new Schema({
   failures_name: {
     type: String
   },
-  failures_species: {
-    type: String,
-    
-  },
+
   brand_name: {
     type: String,
    

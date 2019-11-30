@@ -21,9 +21,6 @@ let b="",c='',d='',f='',g='',date2=''
       description: '',
       selectedFile: null,
       failures_name:'',
-      failures_species:'',
-      multerImage:'',
-      durum22:'',
       profileImg: '',
       imagePreviewUrl: '',
       brand_name:'',
@@ -47,11 +44,11 @@ let b="",c='',d='',f='',g='',date2=''
   handleChangeCalendar = date => {
     this.setState({
       startDate: date,
-      failures_date:date.getDate() + "-"+ parseInt(date.getMonth()+1) +"-"+date.getFullYear()
+      failures_date: parseInt(date.getMonth()+1)+"/"+date.getDate() +"/"+date.getFullYear()
     });
-    date2=date.getDate() + "-"+ parseInt(date.getMonth()+1) +"-"+date.getFullYear();
+    date2=  parseInt(date.getMonth()+1)+"/"+date.getDate() +"/"+date.getFullYear();
 
-    console.log(date)
+  
   };  onFileChange(e) {
     this.setState({ profileImg: e.target.files[0] })
 }
@@ -172,7 +169,7 @@ window.location.replace('/')
    
     const customers=this.state.locations.map(data => (
       
-      <option key={data._id}>{data.first_name} {data.last_name} {data.phone_no}</option>
+      <option key={data._id}>{data.first_name} {data.last_name}</option>
      
     ));   
     

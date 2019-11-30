@@ -6,7 +6,7 @@ failures.use(cors())
 let multer = require('multer');
  let uuidv4 = require('uuid/v4');
  const DIR = './src/uploads';
-
+ let c=undefined
  const storage = multer.diskStorage({
      destination: (req, file, cb) => {
          cb(null, DIR);
@@ -29,13 +29,23 @@ let multer = require('multer');
      }
  });
 failures.put('/fregister', upload.single('profileImg','failures_name'), (req, res, next) => {
-
-  const customerData = {
-    failures_name:req.body.failures_name,
-    profileImg: req.file.filename?req.file.filename:"f0f2e0d5-f180-415a-a523-026cbddf9b39-pagenotfound1.png"
-   
+  if(req.file.filename==undefined){
+     customerData = {
+/*       failures_name:req.body.failures_name,
+ */      profileImg:"f0f2e0d5-f180-415a-a523-026cbddf9b39-pagenotfound1.png"
+     
+    }
+    console.log('asd')
   }
-  Failures.update({failures_name:req.body.failures_name},customerData,function(err,objs){ })
+  else
+   {
+     customerData = {
+/*   failures_name:req.body.failures_name,
+ */      profileImg:req.file.filename
+     
+    }
+   }
+  Failures.update({customer_name:c},customerData,function(err,objs){ })
   .then(objs=> {
      
     res.json(objs)
@@ -47,13 +57,12 @@ failures.put('/fregister', upload.single('profileImg','failures_name'), (req, re
 })
 failures.post('/fregister',(req, res )=> {
   
+   c=req.body.customer_name;
   const date = new Date() 
-  today=date.getDate() + "-"+ parseInt(date.getMonth()+1) +"-"+date.getFullYear()
-  console.log(today)
+  today= parseInt(date.getMonth()+1)+"/"+date.getDate() +"/"+date.getFullYear();
  const failureData = {
   customer_name: req.body.customer_name,
   failures_name: req.body.failures_name,
-  failures_species: req.body.failures_species,
   brand_name: req.body.brand_name,
   note: req.body.note,
   failures_date:req.body.failures_date,
@@ -62,8 +71,8 @@ failures.post('/fregister',(req, res )=> {
   failures_color:req.body.failures_color,
   failures_pay:req.body.failures_pay,
   failuresstate:req.body.failuresstate,
- /*  profileImg:'' */
-  }  
+   profileImg:'f0f2e0d5-f180-415a-a523-026cbddf9b39-pagenotfound1.png' 
+   }  
 a=req.body.failures_name;
 Failures.create(failureData)
     .then(data => {
@@ -104,16 +113,18 @@ failures.put('/flist',(req,res)=>
 {
   const customerData = {
     failures_name:req.body.failures_name,
-    failures_species:req.body.failures_species,
     brand_name:req.body.brand_name,
     price:req.body.price,
     note:req.body.note,
     customer_name:req.body.customer_name,
     failuresstate:req.body.failuresstate,
-    failures_date:req.body.failures_date
+    failures_date:req.body.failures_date,
+    failures_pay:req.body.failures_pay,
+    failures_color:req.body.failures_color,
+
 /*     profileImg:req.body.imagepath
  */  }
-  Failures.update({failures_name:req.body.failures_name},customerData,function(err,objs){ })
+  Failures.update({customer_name:req.body.customer_name},customerData,function(err,objs){ })
   .then(objs=> {
      
     res.json(objs)
@@ -124,14 +135,14 @@ failures.put('/flist',(req,res)=>
 
 })
 
-failures.put('/fliste', upload.single('profileImg','failures_name'), (req, res, next) => {
+failures.put('/fliste', upload.single('profileImg','customer_name'), (req, res, next) => {
 
   const customerData = {
-    failures_name:req.body.failures_name,
+    
     profileImg: req.file.filename
    
   }
-  Failures.update({failures_name:req.body.failures_name},customerData,function(err,objs){ })
+  Failures.update({customer_name:req.body.customer_name},customerData,function(err,objs){ })
   .then(objs=> {
      
     res.json(objs)

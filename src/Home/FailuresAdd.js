@@ -5,108 +5,88 @@ import jwt_decode from 'jwt-decode'
 import{customerlist} from '../component/CustomerFunctions'
 import axios from 'axios'
 import DatePicker from "react-datepicker";
- 
 import "react-datepicker/dist/react-datepicker.css";
-let b="",c='',d='',f='',g='',date2=''
- class FailuresAdd extends Component {
+
+class FailuresAdd extends Component {
   constructor(props) {
     super(props) 
     
     
     this.state = {
       locations:[],
-      showMe:false,
-      imgCollection:'',
-      pictures: [] ,
-      description: '',
-      selectedFile: null,
       failures_name:'',
       profileImg: '',
-      imagePreviewUrl: '',
       brand_name:'',
       price:'',
       customer_name:'',
-     type:'',
       note:'',
-      failuresstate:'',
-     durum:'Beklemede',
-     durum2:'Yapıldı',
-     startDate:new Date(),
-     failures_date:''
-      };    
+      failuresstate:'', 
+      failures_pay:'',
+      failures_color:'',
+      durum:'Beklemede',
+      durum2:'Yapıldı',
+      startDate:new Date(),
+      failures_date:''
+    };    
+
       this.onChange = this.onChange.bind(this)
       this.onSubmit = this.onSubmit.bind(this)
       this.onFileChange = this.onFileChange.bind(this);
      
 
     
-  } 
+  }
+
   handleChangeCalendar = date => {
     this.setState({
       startDate: date,
       failures_date: parseInt(date.getMonth()+1)+"/"+date.getDate() +"/"+date.getFullYear()
     });
-    date2=  parseInt(date.getMonth()+1)+"/"+date.getDate() +"/"+date.getFullYear();
 
-  
-  };  onFileChange(e) {
+  }; 
+
+onFileChange(e) {
     this.setState({ profileImg: e.target.files[0] })
 }
-  onChange(e) {
 
-  
-    this.setState({ [e.target.name]: e.target.value }
-      )
-  
-  
-      
-       
-  }
-  handleChange = (e) => {
+onChange(e) {this.setState({ [e.target.name]: e.target.value }) }
+
+handleChangeCustomer = (e) => {
     let index = e.nativeEvent.target.selectedIndex;
-    const a=e.nativeEvent.target[index].text;
-  
-
-   b=a;
    
-
+    this.setState({
+    customer_name:e.nativeEvent.target[index].text
+    })
 }
-handleChange2 = (e) => {
+
+handleChangeState = (e) => {
   let index = e.nativeEvent.target.selectedIndex;
-  const a=e.nativeEvent.target[index].text;
-
-
- c=a;
- 
-
+  this.setState({
+  failuresstate:e.nativeEvent.target[index].text
+  })
 }
-handleChange3 = (e) => {
+
+handleChangeFailuresName = (e) => {
   let index = e.nativeEvent.target.selectedIndex;
-  const faname=e.nativeEvent.target[index].text;
-
-
- d=faname;
- 
-
+  this.setState({
+  failures_name:e.nativeEvent.target[index].text
+  })
 }
-handleChange4 = (e) => {
+
+handleChangeColor = (e) => {
   let index = e.nativeEvent.target.selectedIndex;
-  const fcolor=e.nativeEvent.target[index].text;
-
-
- f=fcolor;
- 
-
+  this.setState({
+    failures_color:e.nativeEvent.target[index].text
+  })
 }
-handleChange5 = (e) => {
+
+handleChangePay = (e) => {
   let index = e.nativeEvent.target.selectedIndex;
-  const fpay=e.nativeEvent.target[index].text;
-
-
- g=fpay;
- 
-
+  this.setState({
+  failures_pay:e.nativeEvent.target[index].text
+  })
 }
+
 onSubmit(e){
   e.preventDefault();
   console.log(this.state.date)
@@ -114,21 +94,22 @@ onSubmit(e){
   formData.append('profileImg', this.state.profileImg)
 
     const newFailures= {
-    failures_name: d,
+    failures_name: this.state.failures_name,
     failures_species: this.state.failures_species,
     brand_name: this.state.brand_name,
     price: this.state.price,
     note: this.state.note,
-   customer_name:b,
-   failuresstate:c,
+    customer_name:this.state.customer_name,
+    failuresstate:this.state.failuresstate,
     formData,
-   failures_color:f,
-    failures_pay:g,
-    failures_date:date2
-    
-     } 
-     formData.append('failures_name',this.state.failures_name)
-        axios.post('failures/fregister', newFailures)
+    failures_color:this.state.failures_color,
+    failures_pay:this.state.failures_pay,
+    failures_date:this.state.failures_date
+    }
+
+  formData.append('failures_name',this.state.failures_name)
+        
+  axios.post('failures/fregister', newFailures)
   .then((response) => {
     axios.put('failures/fregister',formData)
   .then((response) => {
@@ -137,7 +118,7 @@ onSubmit(e){
   }).catch((error)=>{
     window.location.replace('/home')
   }) 
-}).catch((error) => {
+  }).catch((error) => {
 });   
 
  
@@ -148,11 +129,14 @@ onSubmit(e){
  
   componentDidMount(e) {
     const token = localStorage.usertoken
+    const fadate=new Date()
+
   try{
     jwt_decode(token)
     customerlist().then(res =>{
       this.setState({
-        locations:res
+        locations:res,
+        failures_date:parseInt(fadate.getMonth()+1)+"/"+fadate.getDate() +"/"+fadate.getFullYear()
       })
     })
   }catch(error){
@@ -185,23 +169,21 @@ window.location.replace('/')
       <section className='content '>
   <div className='row justify-content-center'>
           <div className="col-md-6">
-  {/* general form elements */}
   <div className="card card-primary">
     <div className="card-header">
       <h3 className="card-title">Arıza Kaydı</h3>
     </div>
-    {/* /.card-header */}
-    {/* form start */}
+   
     <form noValidate onSubmit={this.onSubmit}> 
       <div className="card-body">
       <div className="form-group">
       <label htmlFor="exampleInputPassword1">Müşteri Seçiniz</label>
-      <select className="form-control"  onChange={this.handleChange} >
+      <select className="form-control"  onChange={this.handleChangeCustomer} >
       <option>Müşteri Seçiniz </option>
       {customers}
     </select><br/>
     <label htmlFor="exampleInputPassword1">Durum Seçiniz</label>
-    <select className="form-control"  onChange={this.handleChange2} >
+    <select className="form-control"  onChange={this.handleChangeState} >
     <option>Durum Seçiniz </option>
       <option>{this.state.durum} </option>
       <option>{this.state.durum2} </option>
@@ -209,7 +191,7 @@ window.location.replace('/')
      
         <div className="form-group">
         <label htmlFor="exampleInputPassword1">Arıza Adı</label>
-    <select className="form-control"  onChange={this.handleChange3} >
+    <select className="form-control"  onChange={this.handleChangeFailuresName} >
     <option>Arıza Adı </option>
       <option>Beslenme Çantası </option>
       <option>Cüzdan </option>
@@ -225,7 +207,7 @@ window.location.replace('/')
         </div>
         <div className="form-group">
         <label htmlFor="exampleInputPassword1">Ürün Renk</label>
-    <select className="form-control"  onChange={this.handleChange4} >
+    <select className="form-control"  onChange={this.handleChangeColor} >
     <option>Renk Seçiniz </option>
       <option>Sarı </option>
       <option>Beyaz</option>
@@ -244,7 +226,7 @@ window.location.replace('/')
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Arıza Ödeme</label>
-          <select className="form-control"  onChange={this.handleChange5} >
+          <select className="form-control"  onChange={this.handleChangePay} >
           <option>Ödeme Seçiniz </option>
       <option>Ödeme Yapılmadı</option>
       <option>Ödeme Alındı </option>
@@ -253,7 +235,7 @@ window.location.replace('/')
     </select>     
       </div>
       <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Teslim Tarihi</label>
+          <label htmlFor="exampleInputPassword1">Teslim Tarihi</label><br/>
           <DatePicker
         selected={this.state.startDate}
         onChange={this.handleChangeCalendar}
@@ -281,12 +263,11 @@ window.location.replace('/')
         </div>
 
         <div class="form-group">
-                                    <label for="exampleFormControlFile1">Resmi Yükle</label>
-                                    <input type="file"  class="form-control-file" onChange={this.onFileChange} />
-                                </div>
+          <label for="exampleFormControlFile1">Resmi Yükle</label>
+          <input type="file"  class="form-control-file" onChange={this.onFileChange} />
+        </div>
      
       </div>
-      {/* /.card-body */}
       <div className="card-footer">
         <button type="submit" className="btn btn-primary">Kaydet</button>
       </div>

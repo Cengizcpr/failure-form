@@ -24,8 +24,8 @@ const PrintButton = ({id, label}) => (<div>
     onClick={() => {
       const input = document.getElementById(id);
       const inputHeightMm = pxToMm(input.offsetHeight);
-      const a4WidthMm = 210;
-      const a4HeightMm = 297; 
+      const a4WidthMm = 100;
+      const a4HeightMm = 100; 
       const a4HeightPx = mmToPx(a4HeightMm); 
       const numPages = inputHeightMm <= a4HeightMm ? 1 : Math.floor(inputHeightMm/a4HeightMm) + 1;
       console.log({

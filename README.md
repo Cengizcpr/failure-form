@@ -1,4 +1,4 @@
-# Other Faiulere Form System
+# Other Apartman Yonetim System
 
 ## Used Architecture
 |İsim            |Teknoloji                      |Port                         |

@@ -5,13 +5,14 @@ const Customer = require('../models/CustomersModel')
 customers.use(cors())
 
 customers.post('/cregister', (req, res) => {
-  const today = new Date()
+  const date = new Date() 
+  today= parseInt(date.getMonth()+1)+"/"+date.getDate() +"/"+date.getFullYear();
   const customerData = {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     phone_no: req.body.phone_no,
     adress: req.body.adress,
-    created: today
+    date: today
   }
 
   Customer.findOne({

@@ -39,7 +39,7 @@ const PrintButton = ({id, label}) => (<div>
           const imgData = canvas.toDataURL('image/png');
           
         
-          const pdf = new jsPDF();
+          const pdf = new jsPDF('p', 'mm', [105, 148]);
 
           pdf.addImage(imgData, 'PNG', 0, 0);
           pdf.save(`${id}.pdf`);

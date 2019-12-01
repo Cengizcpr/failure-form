@@ -35,7 +35,9 @@ constructor(){
     cname:'',
     fname:'',
     cadress:'',
+    rname:'',
     fdate:'',
+    fpay:'',
     bname:'',
     fprice:'',
     fnote:'',
@@ -58,9 +60,7 @@ constructor(){
   try{
     jwt_decode(token)
     const decoded = jwt_decode(token)
-    
     failureslist().then(res=>{
-      console.log(typeof res[0])
       if(res[0] ===undefined){
         this.props.history.push('/homes')
       }
@@ -68,7 +68,8 @@ constructor(){
         this.setState({
           ad:res[0].customer_name,
           locations:res,
-          uemail:decoded.email
+          uemail:decoded.email,
+          rname:decoded.first_name+' '+decoded.last_name
         })
       }
     
@@ -81,7 +82,6 @@ window.location.replace('/')
   }
   prints(a)
   {
-    console.log(a.customer_name)
     customerlist().then(res=>{
     for(var i=0;i<res.length;i++){
     if(res[i].first_name+' '+res[i].last_name==a.customer_name)
@@ -119,6 +119,7 @@ window.location.replace('/')
       fprice:a.price,
       cphone:a.phone_no,
       fnote:a.note,
+      fpay:a.failures_pay,
       showMe:false,
       showMe2:true,
       showMe3:true
@@ -194,10 +195,10 @@ window.location.replace('/')
   </div>
   
 {this.state.showMe3? 
-  <div className="text-right" style={{position:"relative",top:'50px',right:'30px'}}>
-        <button id="printInvoice" className="btn btn-info" onClick={()=>window.print()}><i className="fa fa-print" /> Yazdır</button>
+  <div className="text-right" style={{position:"relative",top:'80px',right:'30px'}}>
           <PrintButton id={"singlePage"}  label={"Pdf İndir"}  />
-     
+          <button id="printInvoice" className="btn btn-info" onClick={()=>window.print()}><i className="fa fa-print" /> Yazdır</button>
+
         </div>   :null
       }
 
@@ -205,13 +206,13 @@ window.location.replace('/')
   <div className="container" style={styles.arka} id={"singlePage"}> 
 {this.state.showMe2? 
   <Page singleMode={true} id={"singlePage"}>
-   <div className="container" style={{  width:'210mm', height: '297mm'}}>
+   <div className="container" style={{  width:'150mm', height: '200mm'}}>
   <div className="row"  >
     <div className="col-12">
       <div className="card">
         <div className="card-body p-2">
           <div className="row p-5">
-            <div className="col-md-6">
+            <div className="col-md-6 text-left">
               <h1>Arıza Formu</h1>
             </div>
             <div className="col-md-6 text-right">
@@ -219,18 +220,20 @@ window.location.replace('/')
               <p className="text-muted">Tarih: {date}</p>
             </div>
           </div>
-          <hr className="my-5" />
+         
           <div className="row pb-5 p-5">
-            <div className="col-md-6">
+            <div className="col-md-6 text-left">
               <p className="font-weight-bold mb-4">Müşteri Bilgisi</p>
-              <p className="mb-1">{this.state.cname}</p>
-              <p>{this.state.cphone}</p>
-              <p className="mb-1">{this.state.cadress}</p>
+              <p className="mb-1"><span className="text-muted">Adı: </span>{this.state.cname}</p>
+              <p className="mb-1"><span className="text-muted">Telefon:  </span>{this.state.cphone}</p>
+              <p className="mb-1"><span className="text-muted">Adres: </span>{this.state.cadress}</p>
               
             </div>
             <div className="col-md-6 text-right">
             
               <p className="font-weight-bold mb-4">Şirket Hakkında</p>
+              <p className="mb-1"><span className="text-muted">Sorumlu: </span>{this.state.rname} </p>
+
               <p className="mb-1"><span className="text-muted">Adı: </span>{this.state.ucompany} </p>
               <p className="mb-1"><span className="text-muted">Telefon: </span> {this.state.uphone}</p>
               <p className="mb-1"><span className="text-muted">Eposta: </span> {this.state.uemail}</p>
@@ -262,30 +265,21 @@ window.location.replace('/')
        
         <tr >
         <th>Not: </th>
-        <th >{this.state.fnote}</th>
+        <th >{this.state.fnote}</th>  </tr>
+        <tr >
+        <th>Ödeme Durumu: </th>
+        <th >{this.state.fpay}</th>  </tr>
+        <tr>
+        <th>Fiyat: </th>
+        <th >{this.state.fprice}₺</th>
      
         </tr>
                 </thead>
                 
               </table>
             </div>
-          </div><div className="d-flex flex-row-reverse  p-4">
-            <div className="py-3 px-5 text-right">
-            <div className="mb-2"> <p className="font-weight-bold mb-4">Fiyat: 
-          {this.state.fprice}₺</p></div>
-            </div>
-           
-           
           </div>
-          <div className="d-flex flex-row-reverse  p-4">
-            <div className="py-3 px-5 text-right">
-            <div className="mb-2"> <p className="font-weight-bold mb-4">Müşteri Onay</p></div>
-            </div>
-            <div className="py-3 px-5 text-left">
-            <div className="mb-2"> <p className="font-weight-bold mb-4">Firma Onay</p></div>
-            </div>
-           
-          </div>
+       
         </div>
       </div>
     </div>
